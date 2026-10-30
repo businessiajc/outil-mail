@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vérificateur SPF, DKIM et DMARC gratuit — vos e-mails arrivent-ils en spam ?</title>
+<meta name="description" content="Testez gratuitement la configuration e-mail de votre nom de domaine : SPF, DKIM, DMARC et MX. Résultat immédiat en français, sans inscription.">
+<style>
+:root{--bg:#fff;--fg:#1a1d23;--mut:#5a6270;--bd:#d9dde3;--ok:#0a7d33;--warn:#a15c00;--ko:#b3261e;--ac:#1f4fd8;--card:#f5f7fa}
+@media(prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#e8eaed;--mut:#9aa3b0;--bd:#2c323b;--ok:#4cc16f;--warn:#e0a03a;--ko:#ff7b72;--ac:#7ea2ff;--card:#1c2027}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.7rem;line-height:1.25}h2{font-size:1.2rem;margin-top:2rem}
+form{display:flex;gap:8px;flex-wrap:wrap}input{flex:1 1 220px;padding:12px;border:1px solid var(--bd);border-radius:8px;font-size:1rem;background:var(--bg);color:var(--fg)}
+button{padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-size:1rem;cursor:pointer}
+.res{margin-top:20px}.item{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0}
+.item h3{margin:0 0 6px;font-size:1rem}.ok{color:var(--ok)}.warn{color:var(--warn)}.ko{color:var(--ko)}
+code{word-break:break-all;font-size:.85rem}.mut{color:var(--mut);font-size:.9rem}footer{margin-top:3rem;border-top:1px solid var(--bd);padding-top:12px}
+a{color:var(--ac)}
+</style>
+</head>
+<body>
+<main>
+<h1>Vos e-mails professionnels arrivent-ils en spam ? Vérifiez SPF, DKIM et DMARC en 5 secondes</h1>
+<p>Entrez votre nom de domaine (par exemple <code>monentreprise.fr</code>). L'outil lit les enregistrements DNS publics de votre domaine et vous explique, en français, ce qui manque. Sans inscription, gratuit.</p>
+<form id="f"><input id="d" placeholder="monentreprise.fr" autocomplete="off" aria-label="Nom de domaine"><button>Vérifier</button></form>
+<div class="res" id="r" aria-live="polite"></div>
+
+<h2>À quoi servent ces trois réglages ?</h2>
+<p><strong>SPF</strong> liste les serveurs autorisés à envoyer des e-mails au nom de votre domaine. <strong>DKIM</strong> signe chaque message pour prouver qu'il n'a pas été modifié. <strong>DMARC</strong> dit aux destinataires quoi faire des messages qui échouent à ces contrôles, et vous envoie des rapports. Sans eux, n'importe qui peut plus facilement se faire passer pour votre entreprise, et vos messages légitimes risquent d'être classés en indésirables.</p>
+
+<h2>Limites de l'outil</h2>
+<p class="mut">DKIM : une signature est publiée sous un nom (« sélecteur ») choisi par votre prestataire de messagerie. L'outil teste une liste de sélecteurs courants ; ne rien trouver ne prouve donc pas que DKIM est absent. Le décompte des requêtes DNS de SPF est une estimation sur le premier niveau seulement. L'outil donne une information générale, pas un audit de sécurité.</p>
+
+<footer class="mut">
+<p><strong>Confidentialité :</strong> le nom de domaine saisi est envoyé au service DNS public de Google (<code>dns.google</code>) pour lire les enregistrements DNS, puis, en cas d'échec, à Cloudflare (<code>cloudflare-dns.com</code>). Cet outil n'enregistre rien. Voir les <a href="mentions.html">mentions légales</a>. Contact : <a href="mailto:businessia.jc@gmail.com">businessia.jc@gmail.com</a>.</p>
+</footer>
+</main>
+<script>
+const SEL=["default","google","selector1","selector2","k1","k2","s1","s2","mail","dkim","smtp","mandrill","mailo","scph0319","everlytickey1","zoho"];
+async function doh(name,type){
+  const urls=[`https://dns.google/resolve?name=${encodeURIComponent(name)}&type=${type}`,
+              `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`];
+  for(const u of urls){
+    try{const r=await fetch(u,{headers:{accept:"application/dns-json"}});if(!r.ok)continue;return await r.json();}catch(e){}
+  }
+  return null;
+}
+const txt=a=>(a||[]).filter(x=>x.type===16).map(x=>x.data.replace(/^"|"$/g,"").replace(/"\s*"/g,""));
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function card(cls,title,msg,raw){return `<div class="item"><h3 class="${cls}">${cls==="ok"?"✔":cls==="warn"?"⚠":"✖"} ${title}</h3><div>${msg}</div>${raw?`<div class="mut"><code>${esc(raw)}</code></div>`:""}</div>`}
+function clean(v){v=v.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/^.*@/,"").split("/")[0];return v}
+async function check(d){
+  const out=[];
+  const [mx,spf,dm]=await Promise.all([doh(d,"MX"),doh(d,"TXT"),doh("_dmarc."+d,"TXT")]);
+  if(!mx||!spf||!dm)return card("ko","Lecture DNS impossible","Impossible de joindre le service DNS public. Réessayez dans un instant.");
+  if(mx.Status===3)return card("ko","Domaine introuvable","Ce nom de domaine n'existe pas (ou a une faute de frappe).");
+  const mxs=(mx.Answer||[]).filter(x=>x.type===15);
+  out.push(mxs.length?card("ok","MX — réception des e-mails","Le domaine a "+mxs.length+" serveur(s) de réception.",mxs.map(x=>x.data).join(" | ")):card("warn","MX — réception des e-mails","Aucun enregistrement MX : ce domaine ne reçoit pas d'e-mails (normal s'il ne sert qu'à envoyer, ou s'il n'a pas de messagerie)."));
+  const sp=txt(spf.Answer).filter(t=>/^v=spf1(\s|$)/i.test(t));
+  if(sp.length===0)out.push(card("ko","SPF","Aucun enregistrement SPF trouvé. N'importe quel serveur peut prétendre envoyer pour votre domaine. Ajoutez un enregistrement TXT commençant par <code>v=spf1</code> listant votre fournisseur de messagerie."));
+  else if(sp.length>1)out.push(card("ko","SPF","Plusieurs enregistrements SPF trouvés. La norme n'en autorise qu'un seul : fusionnez-les, sinon SPF échoue.",sp.join("\n")));
+  else{const s=sp[0];const all=(s.match(/([+\-~?]?)all\b/i)||[])[0];
+    const n=(s.match(/\b(include:|a\b|mx\b|ptr\b|exists:|redirect=)/gi)||[]).length;
+    let c="ok",m="Enregistrement SPF présent.";
+    if(!all&&/redirect=/i.test(s)){m="Enregistrement SPF présent : il renvoie vers la politique d'un autre domaine (<code>redirect=</code>). Vérifiez la règle finale de ce domaine.";}
+    else if(!all){c="warn";m="Pas de règle finale <code>all</code> : les serveurs non listés ne sont pas traités.";}
+    else if(/^\+?all$/i.test(all)){c="ko";m="Terminé par <code>+all</code> : tous les serveurs du monde sont autorisés. À corriger.";}
+    else if(/^\?all$/i.test(all)){c="warn";m="Terminé par <code>?all</code> : neutre, aucune protection.";}
+    else if(/^~all$/i.test(all)){c="ok";m="Terminé par <code>~all</code> (échec « souple ») : acceptable ; <code>-all</code> est plus strict.";}
+    else if(/^-all$/i.test(all)){c="ok";m="Terminé par <code>-all</code> (échec strict) : bonne pratique.";}
+    if(n>10){c="warn";m+=" Environ "+n+" mécanismes de requête au premier niveau : la limite de la norme est de 10 requêtes DNS au total.";}
+    out.push(card(c,"SPF",m,s));}
+  const dmr=txt(dm.Answer).filter(t=>/^v=DMARC1/i.test(t));
+  if(dmr.length===0)out.push(card("ko","DMARC","Aucun enregistrement DMARC trouvé sur <code>_dmarc."+d+"</code>. Recommandation : commencer par <code>v=DMARC1; p=none; rua=mailto:votre@adresse</code> pour recevoir des rapports, puis durcir."));
+  else{const t=dmr[0];const p=(t.match(/;\s*p=(\w+)/i)||t.match(/^v=DMARC1;?\s*p=(\w+)/i)||[])[1];const rua=/rua=/i.test(t);
+    let c="ok",m="Enregistrement DMARC présent. ";
+    if(!p){c="ko";m+="Aucune politique <code>p=</code> : l'enregistrement est invalide.";}
+    else if(p==="none"){c="warn";m+="Politique <code>p=none</code> : surveillance seule, aucun message n'est bloqué. Étape de départ normale ; passez à <code>quarantine</code> puis <code>reject</code> une fois les rapports analysés.";}
+    else if(p==="quarantine"){m+="Politique <code>p=quarantine</code> : les messages en échec vont en indésirables.";}
+    else if(p==="reject"){m+="Politique <code>p=reject</code> : les messages en échec sont refusés. Niveau le plus protecteur.";}
+    if(!rua)m+=" Aucune adresse de rapports (<code>rua=</code>) : vous ne recevrez aucun retour.";
+    out.push(card(c,"DMARC",m,t));}
+  const found=[];
+  await Promise.all(SEL.map(async s=>{const r=await doh(s+"._domainkey."+d,"TXT");const t=r&&txt(r.Answer).find(x=>/v=DKIM1|k=rsa|p=/i.test(x));if(t)found.push(s+" → "+t.slice(0,90)+"…");}));
+  out.push(found.length?card("ok","DKIM","Signature DKIM trouvée pour "+found.length+" sélecteur(s).",found.join("\n")):card("warn","DKIM","Aucune clé DKIM trouvée parmi les sélecteurs courants testés. Cela ne prouve pas l'absence de DKIM (votre prestataire peut utiliser un autre sélecteur). Vérifiez dans l'interface de votre messagerie."));
+  return out.join("");
+}
+document.getElementById("f").addEventListener("submit",async e=>{
+  e.preventDefault();const d=clean(document.getElementById("d").value);const r=document.getElementById("r");
+  if(!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(d)){r.innerHTML=card("ko","Domaine invalide","Entrez un nom de domaine du type monentreprise.fr");return;}
+  r.innerHTML='<p class="mut">Analyse en cours…</p>';
+  try{r.innerHTML="<h2>Résultat pour "+esc(d)+"</h2>"+await check(d);}catch(err){r.innerHTML=card("ko","Erreur","L'analyse a échoué. Réessayez.");}
+});
+</script>
+</body>
+</html>
