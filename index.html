@@ -2,58 +2,243 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vérificateur SPF, DKIM et DMARC gratuit — vos e-mails arrivent-ils en spam ?</title>
-<meta name="description" content="Testez gratuitement la configuration e-mail de votre nom de domaine : SPF, DKIM, DMARC et MX. Résultat immédiat en français, sans inscription.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vérificateur SPF, DKIM et DMARC gratuit — Contrôle e-mail</title>
+<meta name="description" content="Testez gratuitement la configuration e-mail de votre nom de domaine : SPF, DKIM, DMARC et MX. Résultat immédiat en français, avec la correction à appliquer. Sans inscription.">
+<link rel="canonical" href="https://businessiajc.github.io/outil-mail/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='64' height='64' rx='7' fill='%230b5d56'/%3E%3Cpath d='M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3Cpath d='m7 10 7 5.2L21 10' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='21.5' cy='8' r='3.6' fill='%23fff'/%3E%3Cpath d='m19.8 8 1.2 1.2 2-2.2' fill='none' stroke='%230b5d56' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b5d56">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Contrôle e-mail">
+<meta property="og:title" content="Vérificateur SPF, DKIM et DMARC gratuit">
+<meta property="og:description" content="Testez gratuitement la configuration e-mail de votre nom de domaine : SPF, DKIM, DMARC et MX. Résultat immédiat en français, avec la correction à appliquer. Sans inscription.">
+<meta property="og:url" content="https://businessiajc.github.io/outil-mail/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Contrôle e-mail — vérificateur SPF, DKIM, DMARC","applicationCategory":"SecurityApplication","operatingSystem":"Web","inLanguage":"fr","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"Jarod Capella"},"url":"https://businessiajc.github.io/outil-mail/"}</script>
 <style>
-:root{--bg:#fff;--fg:#1a1d23;--mut:#5a6270;--bd:#d9dde3;--ok:#0a7d33;--warn:#a15c00;--ko:#b3261e;--ac:#1f4fd8;--card:#f5f7fa}
-@media(prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#e8eaed;--mut:#9aa3b0;--bd:#2c323b;--ok:#4cc16f;--warn:#e0a03a;--ko:#ff7b72;--ac:#7ea2ff;--card:#1c2027}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
-main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
-h1{font-size:1.7rem;line-height:1.25}h2{font-size:1.2rem;margin-top:2rem}
-form{display:flex;gap:8px;flex-wrap:wrap}input{flex:1 1 220px;padding:12px;border:1px solid var(--bd);border-radius:8px;font-size:1rem;background:var(--bg);color:var(--fg)}
-button{padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-size:1rem;cursor:pointer}
-.res{margin-top:20px}.item{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0}
-.item h3{margin:0 0 6px;font-size:1rem}.ok{color:var(--ok)}.warn{color:var(--warn)}.ko{color:var(--ko)}
-code{word-break:break-all;font-size:.85rem}.mut{color:var(--mut);font-size:.9rem}footer{margin-top:3rem;border-top:1px solid var(--bd);padding-top:12px}
-a{color:var(--ac)}
+/* Système de design commun — éditorial, sobre, lisible. Une seule couleur d'accent. */
+:root{
+  --bg:#f8f8f5;--surface:#fff;--surface-2:#f1f2ee;--ink:#14202b;--ink-2:#3b4852;--mut:#66727c;--line:#dde1e3;--line-2:#c9cfd3;
+  --ac:#0b5d56;--ac-ink:#fff;--ac-soft:#e3f0ee;
+  --ok:#17744a;--ok-bg:#e6f3ec;--warn:#8f5b00;--warn-bg:#fbf0db;--ko:#b0271c;--ko-bg:#fbe7e4;
+  --shadow:0 1px 2px rgba(20,32,43,.06),0 8px 24px -12px rgba(20,32,43,.14);
+  --serif:"Iowan Old Style","Palatino Linotype",Charter,"Book Antiqua",Georgia,serif;
+  --sans:Inter,"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,"Liberation Mono",monospace;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0e1418;--surface:#141c22;--surface-2:#1a242b;--ink:#e8edf0;--ink-2:#c3ccd2;--mut:#93a0a9;--line:#26333c;--line-2:#34444f;
+  --ac:#5cc1b4;--ac-ink:#08201d;--ac-soft:#16302d;
+  --ok:#5ccb92;--ok-bg:#12281d;--warn:#e7b04c;--warn-bg:#2b2210;--ko:#ff8a7e;--ko-bg:#2f1714;
+  --shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--ac);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ac);color:var(--ac-ink);padding:8px 12px;border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+
+/* En-tête */
+.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-decoration:none;font-size:1.02rem}
+.brand svg{flex:none}
+.brand small{font-weight:500;color:var(--mut);margin-left:2px}
+.nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.nav a{color:var(--ink-2);text-decoration:none;padding:7px 11px;border-radius:7px;font-size:.93rem;font-weight:500}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.nav a[aria-current=page]{background:var(--ac-soft);color:var(--ac)}
+@media(max-width:720px){.top .wrap{height:auto;padding-top:10px;padding-bottom:10px;flex-wrap:wrap;gap:6px}.nav{margin-left:-11px;width:100%}.brand small{display:none}}
+
+/* Bandeau d'accueil */
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--line);background:
+ linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 40px,var(--bg)}
+.hero .wrap{max-width:860px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font:600 .78rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
+.kicker::before{content:"";width:22px;height:2px;background:var(--ac)}
+.hero h1{font:700 clamp(1.9rem,4.4vw,2.9rem)/1.12 var(--serif);letter-spacing:-.02em;margin:14px 0 14px;max-width:18em}
+.hero p.lead{font-size:1.1rem;color:var(--ink-2);max-width:42em;margin:0 0 26px}
+.meta-line{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--mut);font-size:.86rem;margin-top:18px}
+.meta-line span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:8px;vertical-align:middle}
+
+/* Champ de saisie */
+.search{display:flex;gap:0;background:var(--surface);border:1.5px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;max-width:640px}
+.search:focus-within{border-color:var(--ac);box-shadow:0 0 0 4px var(--ac-soft)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 1.08rem/1 var(--sans);padding:18px 18px;outline:0}
+.search input::placeholder{color:var(--mut);font-weight:400}
+.btn{border:0;background:var(--ac);color:var(--ac-ink);font:600 .98rem var(--sans);padding:0 26px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ac);border:1px solid var(--line-2);border-radius:8px;padding:8px 14px;font-size:.85rem}
+.btn.ghost:hover{background:var(--ac-soft);filter:none}
+.try{margin-top:12px;color:var(--mut);font-size:.88rem}
+.try button{background:none;border:0;color:var(--ac);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0 2px}
+
+/* Résultats */
+#resultat{padding:0}
+.rhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin:36px 0 18px}
+.rhead h2{font:700 1.5rem/1.2 var(--serif);margin:0}
+.rhead h2 span{font-family:var(--mono);font-weight:600;font-size:.9em;background:var(--surface-2);padding:2px 8px;border-radius:6px}
+.score{display:flex;align-items:center;gap:14px}
+.score b{font:700 1.05rem var(--sans)}
+.bar{display:flex;gap:5px}.bar i{display:block;width:38px;height:8px;border-radius:4px;background:var(--line-2)}
+.bar i.ok{background:var(--ok)}.bar i.warn{background:var(--warn)}.bar i.ko{background:var(--ko)}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:760px){.checks{grid-template-columns:1fr}}
+.check{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--line-2);border-radius:10px;padding:18px 20px}
+.check.ok{border-left-color:var(--ok)}.check.warn{border-left-color:var(--warn)}.check.ko{border-left-color:var(--ko)}
+.check header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.check h3{margin:0;font:700 1.02rem var(--sans);letter-spacing:-.005em}
+.check h3 small{display:block;color:var(--mut);font-weight:500;font-size:.8rem;margin-top:1px}
+.chip{font:700 .72rem/1 var(--sans);letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}.chip.warn{background:var(--warn-bg);color:var(--warn)}.chip.ko{background:var(--ko-bg);color:var(--ko)}
+.check p{margin:6px 0;color:var(--ink-2);font-size:.95rem}
+.rec{position:relative;margin-top:10px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 74px 10px 12px;font:.8rem/1.5 var(--mono);color:var(--ink);word-break:break-all;white-space:pre-wrap}
+.rec button{position:absolute;top:7px;right:7px;font:600 .72rem var(--sans);border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);border-radius:6px;padding:4px 9px;cursor:pointer}
+.rec button:hover{color:var(--ac);border-color:var(--ac)}
+.fix{margin-top:10px;font-size:.9rem;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:9px}
+.fix b{color:var(--ink)}
+.loading{display:flex;align-items:center;gap:12px;color:var(--mut);padding:28px 0}
+.spin{width:18px;height:18px;border:2.5px solid var(--line-2);border-top-color:var(--ac);border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+
+/* Sections */
+section.s{padding:56px 0;border-bottom:1px solid var(--line)}
+section.s.alt{background:var(--surface)}
+.s h2{font:700 clamp(1.45rem,3vw,1.9rem)/1.2 var(--serif);letter-spacing:-.015em;margin:0 0 8px}
+.s .sub{color:var(--ink-2);max-width:44em;margin:0 0 28px}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.cols3>div{padding:24px;border-right:1px solid var(--line)}.cols3>div:last-child{border-right:0}
+@media(max-width:820px){.cols3{grid-template-columns:1fr}.cols3>div{border-right:0;border-bottom:1px solid var(--line)}.cols3>div:last-child{border-bottom:0}}
+.cols3 h3{margin:0 0 4px;font:700 1.1rem var(--sans)}.cols3 h3 span{font:600 .75rem var(--mono);color:var(--ac);display:block;letter-spacing:.04em;margin-bottom:6px}
+.cols3 p{margin:0;color:var(--ink-2);font-size:.95rem}
+.gen{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:820px){.gen{grid-template-columns:1fr}}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:22px}
+.s.alt .panel{background:var(--bg)}
+.panel h3{margin:0 0 2px;font:700 1.05rem var(--sans)}.panel .sub2{color:var(--mut);font-size:.85rem;margin:0 0 14px}
+.panel label{display:block;font-size:.9rem;margin:8px 0}
+.panel label.chk{display:flex;gap:9px;align-items:center}
+.panel input[type=text],.panel select{width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.panel input[type=checkbox]{accent-color:var(--ac);width:17px;height:17px}
+.guides{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.guides{grid-template-columns:1fr}}
+.guide{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+.guide:hover{border-color:var(--ac);transform:translateY(-2px)}
+.guide span{font:600 .74rem var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ac)}
+.guide h3{margin:6px 0 6px;font:700 1.08rem/1.3 var(--serif)}.guide p{margin:0;color:var(--ink-2);font-size:.92rem}
+.method{max-width:760px;color:var(--ink-2)}.method h3{font:700 1rem var(--sans);color:var(--ink);margin:22px 0 4px}.method p{margin:0 0 6px}
+
+/* Pages article */
+.page{padding:36px 0 72px}
+.crumbs{font-size:.85rem;color:var(--mut);margin-bottom:18px}.crumbs a{color:var(--mut)}.crumbs a:hover{color:var(--ac)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:56px;align-items:start}
+@media(max-width:940px){.layout{grid-template-columns:1fr}.aside{order:-1}}
+.prose{max-width:720px}
+.prose h1{font:700 clamp(1.8rem,4vw,2.5rem)/1.15 var(--serif);letter-spacing:-.02em;margin:0 0 12px}
+.prose .byline{color:var(--mut);font-size:.86rem;margin:0 0 26px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.prose h2{font:700 1.45rem/1.25 var(--serif);letter-spacing:-.01em;margin:2.2em 0 .5em;scroll-margin-top:80px}
+.prose h3{font:700 1.08rem var(--sans);margin:1.6em 0 .3em;scroll-margin-top:80px}
+.prose p,.prose li{color:var(--ink-2)}.prose strong{color:var(--ink)}
+.prose ul,.prose ol{padding-left:1.25em}.prose li{margin:.3em 0}
+.prose code{font:.86em var(--mono);background:var(--surface-2);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--ink);word-break:break-word}
+.prose pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}.prose pre code{background:none;border:0;padding:0}
+.prose table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.93rem;display:block;overflow-x:auto}
+.prose th{background:var(--surface-2);text-align:left;font-weight:700;white-space:nowrap}
+.prose th,.prose td{border-bottom:1px solid var(--line);padding:9px 12px;vertical-align:top}
+.prose tr:hover td{background:color-mix(in srgb,var(--surface-2) 55%,transparent)}
+.box,.item,.res{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:10px;padding:14px 18px;margin:1.3em 0}
+.box>:first-child,.res>:first-child,.item>:first-child{margin-top:0}.box>:last-child,.res>:last-child,.item>:last-child{margin-bottom:0}
+.mut{color:var(--mut);font-size:.9rem}
+.prose label{display:block;margin:16px 0 5px;font-weight:600;font-size:.92rem;color:var(--ink)}
+.prose input,.prose select{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:9px;font:inherit;background:var(--surface);color:var(--ink)}
+.prose input:focus,.prose select:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.aside{position:sticky;top:78px;font-size:.9rem}
+.aside .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.aside h4{margin:0 0 8px;font:700 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.aside ul{list-style:none;margin:0;padding:0}.aside li{margin:0}
+.aside li a{display:block;padding:5px 0;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;padding-left:10px;margin-left:-10px}
+.aside li a:hover,.aside li a.on{color:var(--ac);border-left-color:var(--ac)}
+.related a{display:block;padding:6px 0;color:var(--ink-2);text-decoration:none}.related a:hover{color:var(--ac)}
+@media print{.top,.aside,.foot,.skip{display:none}.layout{display:block}body{background:#fff;color:#000}.prose{max-width:none}}
+
+/* Pied de page */
+.foot{background:var(--surface);border-top:1px solid var(--line);padding:36px 0 44px;color:var(--mut);font-size:.88rem}
+.foot .g{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+@media(max-width:760px){.foot .g{grid-template-columns:1fr;gap:20px}}
+.foot h4{margin:0 0 8px;font:700 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.foot a{color:var(--ink-2)}.foot p{margin:0 0 6px}.foot ul{list-style:none;padding:0;margin:0}.foot li{margin:4px 0}
+.foot .legal{margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+
 </style>
 </head>
 <body>
-<main>
-<h1>Vos e-mails professionnels arrivent-ils en spam ? Vérifiez SPF, DKIM et DMARC en 5 secondes</h1>
-<p>Entrez votre nom de domaine (par exemple <code>monentreprise.fr</code>). L'outil lit les enregistrements DNS publics de votre domaine et vous explique, en français, ce qui manque. Sans inscription, gratuit.</p>
-<form id="f"><input id="d" placeholder="monentreprise.fr" autocomplete="off" aria-label="Nom de domaine"><button>Vérifier</button></form>
-<div class="res" id="r" aria-live="polite"></div>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>par Jarod Capella</small></a><nav class="nav" aria-label="Navigation principale"><a href="index.html" aria-current="page">Vérificateur</a><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a></nav></div></header><main id="contenu">
+<section class="hero"><div class="wrap">
+<span class="kicker">Outil gratuit · lecture DNS en direct</span>
+<h1>Vos e-mails professionnels sont-ils protégés contre l'usurpation et le spam ?</h1>
+<p class="lead">Entrez votre nom de domaine. L'outil lit vos enregistrements SPF, DKIM, DMARC et MX, vous dit en français ce qui va et ce qui manque, et vous donne la correction à copier.</p>
+<form class="search" id="f" role="search" novalidate>
+<input id="d" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="monentreprise.fr" aria-label="Nom de domaine à vérifier">
+<button class="btn" type="submit">Vérifier</button></form>
+<p class="try">Pas de domaine sous la main ? Essayez <button type="button" data-ex="gmail.com">gmail.com</button> ou <button type="button" data-ex="laposte.net">laposte.net</button>.</p>
+<div class="meta-line"><span>Aucune inscription</span><span>Rien n'est enregistré</span><span>Résultat en quelques secondes</span></div>
+</div></section>
 
-<h2>À quoi servent ces trois réglages ?</h2>
-<p><strong>SPF</strong> liste les serveurs autorisés à envoyer des e-mails au nom de votre domaine. <strong>DKIM</strong> signe chaque message pour prouver qu'il n'a pas été modifié. <strong>DMARC</strong> dit aux destinataires quoi faire des messages qui échouent à ces contrôles, et vous envoie des rapports. Sans eux, n'importe qui peut plus facilement se faire passer pour votre entreprise, et vos messages légitimes risquent d'être classés en indésirables.</p>
+<div class="wrap" id="resultat" aria-live="polite"></div>
 
-<h2>Générateur SPF et DMARC (à copier)</h2>
-<p class="mut">Composez un enregistrement de départ. Vérifiez toujours auprès de votre fournisseur de messagerie les valeurs à utiliser avant de publier dans votre zone DNS.</p>
-<div class="item"><h3>SPF (type TXT sur <code>votredomaine.fr</code>)</h3>
-<label><input type="checkbox" class="sp" value="include:_spf.google.com"> Google Workspace</label><br>
-<label><input type="checkbox" class="sp" value="include:spf.protection.outlook.com"> Microsoft 365</label><br>
-<label><input type="checkbox" class="sp" value="mx"> Les serveurs MX de mon domaine</label><br>
-<label>Adresse IP autorisée (facultatif) <input id="ip" placeholder="203.0.113.10" style="flex:0 1 180px;padding:6px"></label><br>
-<label>Fin : <select id="all"><option value="~all">~all (souple, conseillé au départ)</option><option value="-all">-all (strict)</option></select></label>
-<div class="mut"><code id="spfo"></code></div></div>
-<div class="item"><h3>DMARC (type TXT sur <code>_dmarc.votredomaine.fr</code>)</h3>
-<label>Politique : <select id="pol"><option value="none">none (surveillance seule, départ conseillé)</option><option value="quarantine">quarantine</option><option value="reject">reject</option></select></label><br>
-<label>Adresse de rapports <input id="rua" placeholder="dmarc@votredomaine.fr" style="flex:0 1 240px;padding:6px"></label>
-<div class="mut"><code id="dmo"></code></div></div>
+<section class="s"><div class="wrap">
+<h2>Comprendre SPF, DKIM et DMARC en une minute</h2>
+<p class="sub">Trois réglages DNS, trois rôles. Sans eux, n'importe qui peut plus facilement se faire passer pour votre entreprise, et vos messages légitimes risquent d'atterrir en indésirables.</p>
+<div class="cols3">
+<div><h3><span>SPF · RFC 7208</span>Qui a le droit d'envoyer</h3><p>Une liste des serveurs autorisés à envoyer des e-mails au nom de votre domaine. Le destinataire compare le serveur expéditeur à cette liste.</p></div>
+<div><h3><span>DKIM · RFC 6376</span>Le message est authentique</h3><p>Une signature numérique ajoutée à chaque message. Elle prouve qu'il vient bien de votre domaine et qu'il n'a pas été modifié en route.</p></div>
+<div><h3><span>DMARC · RFC 7489</span>Que faire en cas d'échec</h3><p>Une consigne aux destinataires pour les messages qui échouent aux deux contrôles précédents (ignorer, mettre en spam, refuser), avec des rapports pour vous.</p></div>
+</div></div></section>
 
-<p><a href="erreurs.html">Erreurs SPF, DKIM, DMARC fréquentes et corrections →</a></p>
-<p><a href="cotisations-micro.html">Calculateur de cotisations micro-entrepreneur 2026 →</a></p>
-<p><a href="spf-google-microsoft.html">SPF pour Google Workspace et Microsoft 365 : enregistrement à copier →</a></p>
+<section class="s alt"><div class="wrap">
+<h2>Générateurs d'enregistrements</h2>
+<p class="sub">Composez un enregistrement de départ, puis copiez-le dans la zone DNS de votre domaine. Vérifiez toujours auprès de votre fournisseur de messagerie les valeurs à utiliser avant de publier.</p>
+<div class="gen">
+<div class="panel"><h3>SPF</h3><p class="sub2">Type TXT sur <code>votredomaine.fr</code></p>
+<label class="chk"><input type="checkbox" class="sp" value="include:_spf.google.com"> Google Workspace</label>
+<label class="chk"><input type="checkbox" class="sp" value="include:spf.protection.outlook.com"> Microsoft 365</label>
+<label class="chk"><input type="checkbox" class="sp" value="mx"> Les serveurs MX de mon domaine</label>
+<label>Adresse IP autorisée (facultatif)<input type="text" id="ip" placeholder="203.0.113.10" inputmode="decimal"></label>
+<label>Règle finale<select id="all"><option value="~all">~all — échec « souple » (conseillé au départ)</option><option value="-all">-all — échec strict</option></select></label>
+<div class="rec" id="spfo-box"><span id="spfo"></span><button type="button" data-copy="spfo">Copier</button></div></div>
+<div class="panel"><h3>DMARC</h3><p class="sub2">Type TXT sur <code>_dmarc.votredomaine.fr</code></p>
+<label>Politique<select id="pol"><option value="none">none — surveillance seule (départ conseillé)</option><option value="quarantine">quarantine — messages en échec vers les indésirables</option><option value="reject">reject — messages en échec refusés</option></select></label>
+<label>Adresse de réception des rapports<input type="text" id="rua" placeholder="dmarc@votredomaine.fr" inputmode="email"></label>
+<div class="rec"><span id="dmo"></span><button type="button" data-copy="dmo">Copier</button></div></div>
+</div></div></section>
 
-<h2>Limites de l'outil</h2>
-<p class="mut">DKIM : une signature est publiée sous un nom (« sélecteur ») choisi par votre prestataire de messagerie. L'outil teste une liste de sélecteurs courants ; ne rien trouver ne prouve donc pas que DKIM est absent. Le décompte des requêtes DNS de SPF suit les <code>include:</code> et <code>redirect=</code> ; il ne remplace pas un test d'envoi réel. L'outil donne une information générale, pas un audit de sécurité.</p>
+<section class="s"><div class="wrap">
+<h2>Guides</h2>
+<p class="sub">Pour aller plus loin que le test : corriger une erreur précise ou configurer son fournisseur.</p>
+<div class="guides"><a class="guide" href="cotisations-micro.html"><span>Calculateur</span><h3>Calculateur de cotisations micro-entrepreneur 2026 (gratuit)</h3><p>Estimez vos cotisations de micro-entrepreneur 2026 avec les taux officiels.</p></a><a class="guide" href="spf-google-microsoft.html"><span>Guide</span><h3>Configurer SPF pour Google Workspace et Microsoft 365 : enregistrement exact</h3><p>Enregistrement SPF à copier pour Google Workspace et Microsoft 365, vérifié sur les documentations officielles.</p></a><a class="guide" href="erreurs.html"><span>Guide</span><h3>Erreurs SPF, DKIM et DMARC fréquentes : causes et corrections</h3><p>Les erreurs SPF, DKIM et DMARC les plus fréquentes, comment les reconnaître et les corriger.</p></a></div>
+</div></section>
 
-<footer class="mut">
-<p><strong>Confidentialité :</strong> le nom de domaine saisi est envoyé au service DNS public de Google (<code>dns.google</code>) pour lire les enregistrements DNS, puis, en cas d'échec, à Cloudflare (<code>cloudflare-dns.com</code>). Cet outil n'enregistre rien. Voir les <a href="mentions.html">mentions légales</a>. Contact : <a href="mailto:businessia.jc@gmail.com">businessia.jc@gmail.com</a>.</p>
-</footer>
+<section class="s alt"><div class="wrap method">
+<h2>Méthode et limites</h2>
+<h3>Ce que l'outil fait</h3><p>Il interroge le DNS public pour lire les enregistrements MX, SPF, DKIM et DMARC de votre domaine, puis les interprète d'après les normes RFC 7208, 6376 et 7489. Pour SPF, il suit les <code>include:</code> et <code>redirect=</code> et compte les requêtes DNS, dont la norme limite le nombre à 10.</p>
+<h3>Ce qu'il ne peut pas faire</h3><p>DKIM est publié sous un nom (« sélecteur ») choisi par votre prestataire : l'outil teste une liste de sélecteurs courants, donc ne rien trouver ne prouve pas que DKIM est absent. Il ne remplace pas un test d'envoi réel ni un audit de sécurité.</p>
+<h3>Confidentialité</h3><p>Le nom de domaine saisi est envoyé au service DNS public de Google (<code>dns.google</code>), puis à Cloudflare (<code>cloudflare-dns.com</code>) en cas d'échec, pour lire les enregistrements. Cet outil n'enregistre rien et ne dépose aucun cookie.</p>
+</div></section>
 </main>
+
+<footer class="foot"><div class="wrap"><div class="g">
+<div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
+<div><h4>Pages</h4><ul><li><a href="index.html">Vérificateur</a></li><li><a href="erreurs.html">Erreurs courantes</a></li><li><a href="spf-google-microsoft.html">SPF Google et Microsoft</a></li><li><a href="cotisations-micro.html">Calculateur micro-entreprise</a></li></ul></div>
+<div><h4>Méthode et sources</h4><ul><li><a href="https://www.rfc-editor.org/rfc/rfc7208" rel="noopener">RFC 7208 — SPF</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc6376" rel="noopener">RFC 6376 — DKIM</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc7489" rel="noopener">RFC 7489 — DMARC</a></li></ul><p style="margin-top:8px">Lecture des enregistrements DNS publics via dns.google, puis cloudflare-dns.com en secours.</p></div>
+</div>
+<div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 2 novembre 2026.</p></div>
+</div></footer>
 <script>
 const SEL=["default","google","selector1","selector2","k1","k2","s1","s2","mail","dkim","smtp","mandrill","mailo","scph0319","everlytickey1","zoho"];
 async function doh(name,type){
@@ -65,8 +250,11 @@ async function doh(name,type){
   return null;
 }
 const txt=a=>(a||[]).filter(x=>x.type===16).map(x=>x.data.replace(/^"|"$/g,"").replace(/"\s*"/g,""));
-const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-function card(cls,title,msg,raw){return `<div class="item"><h3 class="${cls}">${cls==="ok"?"✔":cls==="warn"?"⚠":"✖"} ${title}</h3><div>${msg}</div>${raw?`<div class="mut"><code>${esc(raw)}</code></div>`:""}</div>`}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LBL={ok:"Conforme",warn:"À surveiller",ko:"À corriger"};
+function item(st,title,sub,msg,raw,fix){
+  return {st,html:`<article class="check ${st}"><header><h3>${title}<small>${sub}</small></h3><span class="chip ${st}">${LBL[st]}</span></header><p>${msg}</p>${raw?`<div class="rec"><span>${esc(raw)}</span><button type="button" data-copytext="${esc(raw)}">Copier</button></div>`:""}${fix?`<div class="fix"><b>Que faire :</b> ${fix}</div>`:""}</article>`};
+}
 async function spfCount(dom,seen,depth){
   if(seen.has(dom)||depth>10)return {n:0,err:depth>10?"profondeur excessive":""};
   seen.add(dom);
@@ -81,51 +269,62 @@ async function spfCount(dom,seen,depth){
   }
   return {n,err};
 }
-function clean(v){v=v.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/^.*@/,"").split("/")[0];return v}
+function clean(v){return v.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/^.*@/,"").split("/")[0].split("?")[0]}
 async function check(d){
-  const out=[];
   const [mx,spf,dm]=await Promise.all([doh(d,"MX"),doh(d,"TXT"),doh("_dmarc."+d,"TXT")]);
-  if(!mx||!spf||!dm)return card("ko","Lecture DNS impossible","Impossible de joindre le service DNS public. Réessayez dans un instant.");
-  if(mx.Status===3)return card("ko","Domaine introuvable","Ce nom de domaine n'existe pas (ou a une faute de frappe).");
-  const mxs=(mx.Answer||[]).filter(x=>x.type===15);
-  out.push(mxs.length?card("ok","MX — réception des e-mails","Le domaine a "+mxs.length+" serveur(s) de réception.",mxs.map(x=>x.data).join(" | ")):card("warn","MX — réception des e-mails","Aucun enregistrement MX : ce domaine ne reçoit pas d'e-mails (normal s'il ne sert qu'à envoyer, ou s'il n'a pas de messagerie)."));
+  if(!mx||!spf||!dm)return {err:item("ko","Lecture DNS impossible","Service DNS","Impossible de joindre le service DNS public. Réessayez dans un instant.").html};
+  if(mx.Status===3)return {err:item("ko","Domaine introuvable","Résolution DNS","Ce nom de domaine n'existe pas, ou il contient une faute de frappe.").html};
+  const res=[];
+  /* SPF */
   const sp=txt(spf.Answer).filter(t=>/^v=spf1(\s|$)/i.test(t));
-  if(sp.length===0)out.push(card("ko","SPF","Aucun enregistrement SPF trouvé. N'importe quel serveur peut prétendre envoyer pour votre domaine. Ajoutez un enregistrement TXT commençant par <code>v=spf1</code> listant votre fournisseur de messagerie."));
-  else if(sp.length>1)out.push(card("ko","SPF","Plusieurs enregistrements SPF trouvés. La norme n'en autorise qu'un seul : fusionnez-les, sinon SPF échoue.",sp.join("\n")));
+  if(sp.length===0)res.push(item("ko","SPF","Expéditeurs autorisés","Aucun enregistrement SPF trouvé. N'importe quel serveur peut prétendre envoyer des e-mails au nom de votre domaine.","","Ajoutez un enregistrement TXT commençant par <code>v=spf1</code> qui liste votre fournisseur de messagerie. Le générateur plus bas vous donne un point de départ."));
+  else if(sp.length>1)res.push(item("ko","SPF","Expéditeurs autorisés","Plusieurs enregistrements SPF trouvés. La norme n'en autorise qu'un seul : avec plusieurs, SPF échoue.",sp.join("\n"),"Fusionnez-les en un seul enregistrement TXT."));
   else{const s=sp[0];const all=(s.match(/([+\-~?]?)all\b/i)||[])[0];
-    const n=(s.match(/\b(include:|a\b|mx\b|ptr\b|exists:|redirect=)/gi)||[]).length;
-    let c="ok",m="Enregistrement SPF présent.";
-    if(!all&&/redirect=/i.test(s)){m="Enregistrement SPF présent : il renvoie vers la politique d'un autre domaine (<code>redirect=</code>). Vérifiez la règle finale de ce domaine.";}
-    else if(!all){c="warn";m="Pas de règle finale <code>all</code> : les serveurs non listés ne sont pas traités.";}
-    else if(/^\+?all$/i.test(all)){c="ko";m="Terminé par <code>+all</code> : tous les serveurs du monde sont autorisés. À corriger.";}
-    else if(/^\?all$/i.test(all)){c="warn";m="Terminé par <code>?all</code> : neutre, aucune protection.";}
-    else if(/^~all$/i.test(all)){c="ok";m="Terminé par <code>~all</code> (échec « souple ») : acceptable ; <code>-all</code> est plus strict.";}
-    else if(/^-all$/i.test(all)){c="ok";m="Terminé par <code>-all</code> (échec strict) : bonne pratique.";}
-    if(n>10){c="ko";m+=" <strong>"+n+" requêtes DNS</strong> comptées en suivant les <code>include:</code> : la norme (RFC 7208) en autorise 10 au maximum. Au-delà, SPF renvoie une erreur permanente et vos messages peuvent être rejetés. Retirez les services inutilisés ou remplacez-les par des adresses IP (<code>ip4:</code>).";}
-    else m+=" Requêtes DNS comptées : "+n+" sur 10 autorisées."+(cnt.err?" Note : "+esc(cnt.err)+" (décompte partiel).":"");
-    out.push(card(c,"SPF",m,s));}
-  const dmr=txt(dm.Answer).filter(t=>/^v=DMARC1/i.test(t));
-  if(dmr.length===0)out.push(card("ko","DMARC","Aucun enregistrement DMARC trouvé sur <code>_dmarc."+d+"</code>. Recommandation : commencer par <code>v=DMARC1; p=none; rua=mailto:votre@adresse</code> pour recevoir des rapports, puis durcir."));
-  else{const t=dmr[0];const p=(t.match(/;\s*p=(\w+)/i)||t.match(/^v=DMARC1;?\s*p=(\w+)/i)||[])[1];const rua=/rua=/i.test(t);
-    let c="ok",m="Enregistrement DMARC présent. ";
-    if(!p){c="ko";m+="Aucune politique <code>p=</code> : l'enregistrement est invalide.";}
-    else if(p==="none"){c="warn";m+="Politique <code>p=none</code> : surveillance seule, aucun message n'est bloqué. Étape de départ normale ; passez à <code>quarantine</code> puis <code>reject</code> une fois les rapports analysés.";}
-    else if(p==="quarantine"){m+="Politique <code>p=quarantine</code> : les messages en échec vont en indésirables.";}
-    else if(p==="reject"){m+="Politique <code>p=reject</code> : les messages en échec sont refusés. Niveau le plus protecteur.";}
-    if(!rua)m+=" Aucune adresse de rapports (<code>rua=</code>) : vous ne recevrez aucun retour.";
-    out.push(card(c,"DMARC",m,t));}
+    const cnt=await spfCount(d,new Set(),0);const n=cnt.n;
+    let c="ok",m="Enregistrement SPF présent.",fix="";
+    if(!all&&/redirect=/i.test(s)){m="Enregistrement SPF présent : il renvoie vers la politique d'un autre domaine (<code>redirect=</code>).";}
+    else if(!all){c="warn";m="Pas de règle finale <code>all</code> : les serveurs non listés ne sont pas traités.";fix="Terminez l'enregistrement par <code>~all</code> ou <code>-all</code>.";}
+    else if(/^\+?all$/i.test(all)){c="ko";m="Terminé par <code>+all</code> : tous les serveurs du monde sont autorisés.";fix="Remplacez <code>+all</code> par <code>~all</code> ou <code>-all</code>.";}
+    else if(/^\?all$/i.test(all)){c="warn";m="Terminé par <code>?all</code> : règle neutre, aucune protection.";fix="Remplacez <code>?all</code> par <code>~all</code> ou <code>-all</code>.";}
+    else if(/^~all$/i.test(all)){m="Terminé par <code>~all</code> (échec « souple ») : acceptable pour démarrer. <code>-all</code> est plus strict.";}
+    else if(/^-all$/i.test(all)){m="Terminé par <code>-all</code> (échec strict) : bonne pratique.";}
+    if(n>10){c="ko";m+=` <strong>${n} requêtes DNS</strong> comptées en suivant les <code>include:</code> : la norme (RFC 7208) en autorise 10 au maximum. Au-delà, SPF renvoie une erreur permanente et vos messages peuvent être rejetés.`;fix="Retirez les services inutilisés ou remplacez-les par des adresses IP (<code>ip4:</code>).";}
+    else m+=` Requêtes DNS comptées : <strong>${n} sur 10</strong> autorisées.`+(cnt.err?" Décompte partiel : "+esc(cnt.err)+".":"");
+    res.push(item(c,"SPF","Expéditeurs autorisés",m,s,fix));}
+  /* DKIM */
   const found=[];
   await Promise.all(SEL.map(async s=>{const r=await doh(s+"._domainkey."+d,"TXT");const t=r&&txt(r.Answer).find(x=>/v=DKIM1|k=rsa|p=/i.test(x));if(t)found.push(s+" → "+t.slice(0,90)+"…");}));
-  out.push(found.length?card("ok","DKIM","Signature DKIM trouvée pour "+found.length+" sélecteur(s).",found.join("\n")):card("warn","DKIM","Aucune clé DKIM trouvée parmi les sélecteurs courants testés. Cela ne prouve pas l'absence de DKIM (votre prestataire peut utiliser un autre sélecteur). Vérifiez dans l'interface de votre messagerie."));
-  return out.join("");
+  res.push(found.length?item("ok","DKIM","Signature des messages","Signature DKIM trouvée pour "+found.length+" sélecteur(s).",found.join("\n")):item("warn","DKIM","Signature des messages","Aucune clé DKIM trouvée parmi les sélecteurs courants testés. Cela ne prouve pas que DKIM est absent : votre prestataire utilise peut-être un autre sélecteur.","","Vérifiez dans l'interface de votre messagerie (Google Workspace, Microsoft 365, OVH…) que la signature DKIM est activée."));
+  /* DMARC */
+  const dmr=txt(dm.Answer).filter(t=>/^v=DMARC1/i.test(t));
+  if(dmr.length===0)res.push(item("ko","DMARC","Politique et rapports","Aucun enregistrement DMARC trouvé sur <code>_dmarc."+esc(d)+"</code>. Sans lui, les destinataires ne savent pas quoi faire des messages qui échouent aux contrôles.","","Créez un enregistrement TXT <code>_dmarc</code> : <code>v=DMARC1; p=none; rua=mailto:votre@adresse</code>. Vous recevrez des rapports, puis vous durcirez la politique."));
+  else{const t=dmr[0];const p=(t.match(/;\s*p=(\w+)/i)||t.match(/^v=DMARC1;?\s*p=(\w+)/i)||[])[1];const rua=/rua=/i.test(t);
+    let c="ok",m="Enregistrement DMARC présent. ",fix="";
+    if(!p){c="ko";m+="Aucune politique <code>p=</code> : l'enregistrement est invalide.";fix="Ajoutez <code>p=none</code>, <code>p=quarantine</code> ou <code>p=reject</code>.";}
+    else if(p==="none"){c="warn";m+="Politique <code>p=none</code> : surveillance seule, aucun message n'est bloqué. C'est une étape de départ normale.";fix="Après analyse des rapports, passez à <code>quarantine</code> puis <code>reject</code>.";}
+    else if(p==="quarantine"){m+="Politique <code>p=quarantine</code> : les messages en échec vont en indésirables.";}
+    else if(p==="reject"){m+="Politique <code>p=reject</code> : les messages en échec sont refusés. Niveau le plus protecteur.";}
+    if(!rua){m+=" Aucune adresse de rapports (<code>rua=</code>) : vous ne recevez aucun retour.";if(c==="ok")c="warn";fix=(fix?fix+" ":"")+"Ajoutez <code>rua=mailto:votre@adresse</code> pour recevoir les rapports.";}
+    res.push(item(c,"DMARC","Politique et rapports",m,t,fix));}
+  /* MX */
+  const mxs=(mx.Answer||[]).filter(x=>x.type===15);
+  res.push(mxs.length?item("ok","MX","Réception des e-mails","Le domaine a "+mxs.length+" serveur(s) de réception.",mxs.map(x=>x.data).join("\n")):item("warn","MX","Réception des e-mails","Aucun enregistrement MX : ce domaine ne reçoit pas d'e-mails. C'est normal s'il ne sert qu'à envoyer, ou s'il n'a pas de messagerie."));
+  return {res};
 }
-document.getElementById("f").addEventListener("submit",async e=>{
-  e.preventDefault();const d=clean(document.getElementById("d").value);const r=document.getElementById("r");
-  if(!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(d)){r.innerHTML=card("ko","Domaine invalide","Entrez un nom de domaine du type monentreprise.fr");return;}
-  r.innerHTML='<p class="mut">Analyse en cours…</p>';
-  try{r.innerHTML="<h2>Résultat pour "+esc(d)+"</h2>"+await check(d);}catch(err){r.innerHTML=card("ko","Erreur","L'analyse a échoué. Réessayez.");}
-});
-
+function render(d,out){
+  if(out.err)return `<div class="rhead"><h2>Résultat pour <span>${esc(d)}</span></h2></div><div class="checks">${out.err}</div>`;
+  const r=out.res,okn=r.filter(x=>x.st==="ok").length;
+  return `<div class="rhead"><h2>Résultat pour <span>${esc(d)}</span></h2><div class="score"><div class="bar" aria-hidden="true">${r.map(x=>`<i class="${x.st}"></i>`).join("")}</div><b>${okn} contrôle${okn>1?"s":""} sur ${r.length} conforme${okn>1?"s":""}</b></div></div><div class="checks">${r.map(x=>x.html).join("")}</div>`;
+}
+async function run(raw){
+  const d=clean(raw),box=document.getElementById("resultat");
+  if(!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(d)){box.innerHTML=render(d||raw,{err:item("ko","Domaine invalide","Saisie","Entrez un nom de domaine du type <code>monentreprise.fr</code>.").html});return;}
+  box.innerHTML='<div class="loading"><span class="spin"></span>Lecture des enregistrements DNS de '+esc(d)+'…</div>';
+  try{box.innerHTML=render(d,await check(d));box.scrollIntoView({behavior:"smooth",block:"start"});}
+  catch(e){box.innerHTML=render(d,{err:item("ko","Erreur","Analyse","L'analyse a échoué. Réessayez.").html});}
+}
+document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();run(document.getElementById("d").value)});
+document.querySelectorAll("[data-ex]").forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.ex;document.getElementById("d").value=v;run(v)}));
 function gen(){
   const parts=["v=spf1",...[...document.querySelectorAll(".sp:checked")].map(x=>x.value)];
   const ip=document.getElementById("ip").value.trim();
@@ -136,6 +335,14 @@ function gen(){
   document.getElementById("dmo").textContent="v=DMARC1; p="+document.getElementById("pol").value+(/^[^\s@;,]+@[^\s@;,]+$/.test(rua)?"; rua=mailto:"+rua:"");
 }
 document.querySelectorAll(".sp,#ip,#all,#pol,#rua").forEach(e=>e.addEventListener("input",gen));gen();
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-copy],button[data-copytext]");if(!b)return;
+  const t=b.dataset.copy?document.getElementById(b.dataset.copy).textContent:b.dataset.copytext;
+  const done=()=>{const o=b.textContent;b.textContent="Copié";setTimeout(()=>b.textContent=o,1400)};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,()=>{});else done();
+});
+(function(){const q=new URLSearchParams(location.search).get("d");if(q){document.getElementById("d").value=q;run(q)}})();
 </script>
+
 </body>
 </html>
