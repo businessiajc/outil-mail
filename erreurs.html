@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erreurs SPF, DKIM et DMARC fréquentes : causes et corrections</title>
+<meta name="description" content="Les erreurs SPF, DKIM et DMARC les plus courantes (plus de 10 requêtes DNS, deux enregistrements SPF, DMARC mal placé...) : ce que cela signifie et comment corriger.">
+<style>
+:root{--bg:#fff;--fg:#1a1d23;--mut:#5a6270;--bd:#d9dde3;--ok:#0a7d33;--warn:#a15c00;--ko:#b3261e;--ac:#1f4fd8;--card:#f5f7fa}
+@media(prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#e8eaed;--mut:#9aa3b0;--bd:#2c323b;--ok:#4cc16f;--warn:#e0a03a;--ko:#ff7b72;--ac:#7ea2ff;--card:#1c2027}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.7rem;line-height:1.25}h2{font-size:1.2rem;margin-top:2rem}
+form{display:flex;gap:8px;flex-wrap:wrap}input{flex:1 1 220px;padding:12px;border:1px solid var(--bd);border-radius:8px;font-size:1rem;background:var(--bg);color:var(--fg)}
+button{padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-size:1rem;cursor:pointer}
+.res{margin-top:20px}.item{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0}
+.item h3{margin:0 0 6px;font-size:1rem}.ok{color:var(--ok)}.warn{color:var(--warn)}.ko{color:var(--ko)}
+code{word-break:break-all;font-size:.85rem}.mut{color:var(--mut);font-size:.9rem}footer{margin-top:3rem;border-top:1px solid var(--bd);padding-top:12px}
+a{color:var(--ac)}
+</style>
+</head>
+<body>
+</head>
+<body>
+<main>
+<p><a href="./">← Vérificateur SPF, DKIM, DMARC</a></p>
+<h1>Erreurs SPF, DKIM et DMARC fréquentes : que faire ?</h1>
+<p class="mut">Explications générales d'après les normes publiques (RFC 7208 pour SPF, RFC 6376 pour DKIM, RFC 7489 pour DMARC). Chaque cas se corrige dans la zone DNS de votre domaine, chez votre hébergeur ou registrar.</p>
+
+<h2>SPF : « permerror » ou plus de 10 requêtes DNS</h2>
+<p>La norme limite à <strong>10</strong> le nombre de requêtes DNS déclenchées par un enregistrement SPF (<code>include:</code>, <code>a</code>, <code>mx</code>, <code>ptr</code>, <code>exists:</code>, <code>redirect=</code>). Au-delà, le résultat est une erreur permanente et le SPF est considéré comme invalide. <strong>Correction :</strong> retirer les <code>include:</code> de services que vous n'utilisez plus, remplacer <code>a</code>/<code>mx</code> par des adresses <code>ip4:</code> quand elles sont stables. Notre outil compte ces requêtes.</p>
+
+<h2>SPF : deux enregistrements SPF sur le même domaine</h2>
+<p>Un domaine ne doit publier <strong>qu'un seul</strong> enregistrement TXT commençant par <code>v=spf1</code>. Avec deux, le résultat est une erreur. <strong>Correction :</strong> fusionner les deux en une seule ligne, avec un seul <code>all</code> à la fin.</p>
+
+<h2>SPF : oubli de la fin (<code>~all</code> ou <code>-all</code>)</h2>
+<p>Sans mécanisme final, les expéditeurs non listés ne sont pas traités. <code>~all</code> (échec souple) est un bon départ ; <code>-all</code> (échec strict) est plus protecteur une fois la liste d'expéditeurs vérifiée. Évitez <code>+all</code> : il autorise n'importe qui.</p>
+
+<h2>DKIM : « clé introuvable »</h2>
+<p>La clé DKIM est publiée sous <code>sélecteur._domainkey.votredomaine.fr</code> ; le sélecteur est choisi par votre prestataire (Google, Microsoft 365, newsletter...). Notre outil teste des sélecteurs courants seulement : ne rien trouver ne prouve pas l'absence de DKIM. <strong>Correction :</strong> activer DKIM dans l'interface de votre messagerie, qui indique le nom exact et la valeur à publier.</p>
+
+<h2>DMARC : enregistrement mal placé</h2>
+<p>L'enregistrement DMARC est un TXT publié sur <code>_dmarc.votredomaine.fr</code> (pas sur le domaine racine). Exemple de départ : <code>v=DMARC1; p=none; rua=mailto:dmarc@votredomaine.fr</code>. La balise <code>v=DMARC1</code> doit venir en premier.</p>
+
+<h2>DMARC : rester en <code>p=none</code></h2>
+<p><code>none</code> surveille sans rien bloquer : c'est la bonne étape de départ, mais elle ne protège pas contre l'usurpation. Après avoir lu les rapports et corrigé vos expéditeurs légitimes, passer à <code>quarantine</code> puis <code>reject</code>.</p>
+
+<h2>DMARC : SPF ou DKIM « aligné » manquant</h2>
+<p>DMARC réussit si SPF <em>ou</em> DKIM réussit <strong>et</strong> que le domaine vérifié correspond au domaine visible de l'adresse d'expéditeur (alignement). Un service tiers qui envoie avec son propre domaine échoue donc l'alignement : il faut configurer l'envoi « avec votre domaine » (DKIM personnalisé) chez ce service.</p>
+
+<h2>Testez votre domaine</h2>
+<p><a href="./">Lancer le vérificateur gratuit</a> — il lit vos enregistrements publics et explique le résultat.</p>
+<footer class="mut"><p>Information générale, pas un audit de sécurité. <a href="mentions.html">Mentions</a></p></footer>
+</main>
+</body>
+</html>
