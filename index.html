@@ -20,7 +20,7 @@
 /* Système de design commun — éditorial, sobre, lisible. Une seule couleur d'accent. */
 :root{
   --bg:#f8f8f5;--surface:#fff;--surface-2:#f1f2ee;--ink:#14202b;--ink-2:#3b4852;--mut:#66727c;--line:#dde1e3;--line-2:#c9cfd3;
-  --ac:#0b5d56;--ac-ink:#fff;--ac-soft:#e3f0ee;
+  --ac:#0b5d56;--ac-ink:#fff;--ac-soft:#e3f0ee;--c2:#2552c7;--c2-soft:#e6ecfb;--c3:#b4580b;--c3-soft:#fbeadb;--c4:#7a2f8f;--c4-soft:#f3e7f7;--hero:#dcefe9;--band:#eef3f1;
   --ok:#17744a;--ok-bg:#e6f3ec;--warn:#8f5b00;--warn-bg:#fbf0db;--ko:#b0271c;--ko-bg:#fbe7e4;
   --shadow:0 1px 2px rgba(20,32,43,.06),0 8px 24px -12px rgba(20,32,43,.14);
   --serif:"Iowan Old Style","Palatino Linotype",Charter,"Book Antiqua",Georgia,serif;
@@ -30,7 +30,7 @@
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){
   --bg:#0e1418;--surface:#141c22;--surface-2:#1a242b;--ink:#e8edf0;--ink-2:#c3ccd2;--mut:#93a0a9;--line:#26333c;--line-2:#34444f;
-  --ac:#5cc1b4;--ac-ink:#08201d;--ac-soft:#16302d;
+  --ac:#5cc1b4;--ac-ink:#08201d;--ac-soft:#16302d;--c2:#8aa8ff;--c2-soft:#1a2440;--c3:#f0a35c;--c3-soft:#33230f;--c4:#d39be6;--c4-soft:#2b1a33;--hero:#10302f;--band:#121d22;
   --ok:#5ccb92;--ok-bg:#12281d;--warn:#e7b04c;--warn-bg:#2b2210;--ko:#ff8a7e;--ko-bg:#2f1714;
   --shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
 *{box-sizing:border-box}
@@ -44,7 +44,7 @@ a:hover{text-decoration-thickness:2px}
 .skip:focus{left:8px}
 
 /* En-tête */
-.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top{background:var(--surface);border-bottom:1px solid var(--line);border-top:4px solid var(--ac);position:sticky;top:0;z-index:5}
 .top .wrap{display:flex;align-items:center;gap:20px;height:58px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-decoration:none;font-size:1.02rem}
 .brand svg{flex:none}
@@ -56,8 +56,8 @@ a:hover{text-decoration-thickness:2px}
 @media(max-width:720px){.top .wrap{height:auto;padding-top:10px;padding-bottom:10px;flex-wrap:wrap;gap:6px}.nav{margin-left:-11px;width:100%}.brand small{display:none}}
 
 /* Bandeau d'accueil */
-.hero{padding:56px 0 40px;border-bottom:1px solid var(--line);background:
- linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 40px,var(--bg)}
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line);background:var(--hero);position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:4px;background:linear-gradient(90deg,var(--ac) 0 34%,var(--c2) 34% 67%,var(--c3) 67% 100%)}
 .hero .wrap{max-width:860px}
 .kicker{display:inline-flex;align-items:center;gap:8px;font:600 .78rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
 .kicker::before{content:"";width:22px;height:2px;background:var(--ac)}
@@ -108,7 +108,8 @@ a:hover{text-decoration-thickness:2px}
 
 /* Sections */
 section.s{padding:56px 0;border-bottom:1px solid var(--line)}
-section.s.alt{background:var(--surface)}
+section.s.alt{background:var(--band)}
+.s h2::before{content:"";display:block;width:44px;height:4px;border-radius:2px;background:var(--ac);margin-bottom:12px}
 .s h2{font:700 clamp(1.45rem,3vw,1.9rem)/1.2 var(--serif);letter-spacing:-.015em;margin:0 0 8px}
 .s .sub{color:var(--ink-2);max-width:44em;margin:0 0 28px}
 .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
@@ -174,6 +175,23 @@ section.s.alt{background:var(--surface)}
 .foot a{color:var(--ink-2)}.foot p{margin:0 0 6px}.foot ul{list-style:none;padding:0;margin:0}.foot li{margin:4px 0}
 .foot .legal{margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
 
+/* Couleurs par rubrique */
+.cols3>div{border-top:4px solid var(--ac)}.cols3>div.c2{border-top-color:var(--c2)}.cols3>div.c3{border-top-color:var(--c3)}
+.cols3>div.c1 h3 span{color:var(--ac)}.cols3>div.c2 h3 span{color:var(--c2)}.cols3>div.c3 h3 span{color:var(--c3)}
+.cols3>div.c1{background:var(--ac-soft)}.cols3>div.c2{background:var(--c2-soft)}.cols3>div.c3{background:var(--c3-soft)}
+.guide{border-top:4px solid var(--ac)}.guide.k-guide{border-top-color:var(--c2)}.guide.k-guide span{color:var(--c2)}
+.guide.k-calc{border-top-color:var(--c3)}.guide.k-calc span{color:var(--c3)}
+.guide:hover{border-color:var(--line-2);box-shadow:var(--shadow)}
+.guide.k-guide:hover{border-top-color:var(--c2)}.guide.k-calc:hover{border-top-color:var(--c3)}
+.kicker{color:var(--ac)}.btn{background:var(--ac)}
+.meta-line span:nth-child(2)::before{background:var(--c2)}.meta-line span:nth-child(3)::before{background:var(--c3)}
+.panel{border-top:4px solid var(--c2)}.gen .panel:nth-child(2){border-top-color:var(--c4)}
+.prose h2{border-left:4px solid var(--ac);padding-left:12px}
+.prose h2:nth-of-type(3n+2){border-left-color:var(--c2)}.prose h2:nth-of-type(3n+3){border-left-color:var(--c3)}
+.prose th{background:var(--ac-soft);color:var(--ink)}
+.aside .card:first-child{border-top:4px solid var(--c2)}.aside .card.related{border-top:4px solid var(--c3)}
+.foot{border-top:4px solid var(--ac)}
+
 </style>
 </head>
 <body>
@@ -196,9 +214,9 @@ section.s.alt{background:var(--surface)}
 <h2>Comprendre SPF, DKIM et DMARC en une minute</h2>
 <p class="sub">Trois réglages DNS, trois rôles. Sans eux, n'importe qui peut plus facilement se faire passer pour votre entreprise, et vos messages légitimes risquent d'atterrir en indésirables.</p>
 <div class="cols3">
-<div><h3><span>SPF · RFC 7208</span>Qui a le droit d'envoyer</h3><p>Une liste des serveurs autorisés à envoyer des e-mails au nom de votre domaine. Le destinataire compare le serveur expéditeur à cette liste.</p></div>
-<div><h3><span>DKIM · RFC 6376</span>Le message est authentique</h3><p>Une signature numérique ajoutée à chaque message. Elle prouve qu'il vient bien de votre domaine et qu'il n'a pas été modifié en route.</p></div>
-<div><h3><span>DMARC · RFC 7489</span>Que faire en cas d'échec</h3><p>Une consigne aux destinataires pour les messages qui échouent aux deux contrôles précédents (ignorer, mettre en spam, refuser), avec des rapports pour vous.</p></div>
+<div class="c1"><h3><span>SPF · RFC 7208</span>Qui a le droit d'envoyer</h3><p>Une liste des serveurs autorisés à envoyer des e-mails au nom de votre domaine. Le destinataire compare le serveur expéditeur à cette liste.</p></div>
+<div class="c2"><h3><span>DKIM · RFC 6376</span>Le message est authentique</h3><p>Une signature numérique ajoutée à chaque message. Elle prouve qu'il vient bien de votre domaine et qu'il n'a pas été modifié en route.</p></div>
+<div class="c3"><h3><span>DMARC · RFC 7489</span>Que faire en cas d'échec</h3><p>Une consigne aux destinataires pour les messages qui échouent aux deux contrôles précédents (ignorer, mettre en spam, refuser), avec des rapports pour vous.</p></div>
 </div></div></section>
 
 <section class="s alt"><div class="wrap">
@@ -221,7 +239,7 @@ section.s.alt{background:var(--surface)}
 <section class="s"><div class="wrap">
 <h2>Guides</h2>
 <p class="sub">Pour aller plus loin que le test : corriger une erreur précise ou configurer son fournisseur.</p>
-<div class="guides"><a class="guide" href="cotisations-micro.html"><span>Calculateur</span><h3>Calculateur de cotisations micro-entrepreneur 2026 (gratuit)</h3><p>Estimez vos cotisations de micro-entrepreneur 2026 avec les taux officiels.</p></a><a class="guide" href="spf-google-microsoft.html"><span>Guide</span><h3>Configurer SPF pour Google Workspace et Microsoft 365 : enregistrement exact</h3><p>Enregistrement SPF à copier pour Google Workspace et Microsoft 365, vérifié sur les documentations officielles.</p></a><a class="guide" href="erreurs.html"><span>Guide</span><h3>Erreurs SPF, DKIM et DMARC fréquentes : causes et corrections</h3><p>Les erreurs SPF, DKIM et DMARC les plus fréquentes, comment les reconnaître et les corriger.</p></a></div>
+<div class="guides"><a class="guide k-calc" href="cotisations-micro.html"><span>Calculateur</span><h3>Calculateur de cotisations micro-entrepreneur 2026 (gratuit)</h3><p>Estimez vos cotisations de micro-entrepreneur 2026 avec les taux officiels.</p></a><a class="guide k-guide" href="spf-google-microsoft.html"><span>Guide</span><h3>Configurer SPF pour Google Workspace et Microsoft 365 : enregistrement exact</h3><p>Enregistrement SPF à copier pour Google Workspace et Microsoft 365, vérifié sur les documentations officielles.</p></a><a class="guide k-guide" href="erreurs.html"><span>Guide</span><h3>Erreurs SPF, DKIM et DMARC fréquentes : causes et corrections</h3><p>Les erreurs SPF, DKIM et DMARC les plus fréquentes, comment les reconnaître et les corriger.</p></a></div>
 </div></section>
 
 <section class="s alt"><div class="wrap method">
