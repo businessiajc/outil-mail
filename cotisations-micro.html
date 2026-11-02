@@ -192,6 +192,13 @@ section.s.alt{background:var(--band)}
 .aside .card:first-child{border-top:4px solid var(--c2)}.aside .card.related{border-top:4px solid var(--c3)}
 .foot{border-top:4px solid var(--ac)}
 
+/* Niveaux d'études */
+.levels{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.tag{display:inline-block;font:700 .72rem/1 var(--sans);letter-spacing:.03em;padding:6px 10px;border-radius:999px;text-decoration:none;background:var(--ac-soft);color:var(--ac)}
+.tag.t2{background:var(--ac-soft);color:var(--ac)}.tag.t3{background:var(--c2-soft);color:var(--c2)}.tag.t5{background:var(--c3-soft);color:var(--c3)}
+a.tag:hover{filter:brightness(.95);text-decoration:none}
+.levnote{margin:2px 0 22px;font-size:.82rem}
+
 </style>
 </head>
 <body>
@@ -216,7 +223,7 @@ section.s.alt{background:var(--band)}
 <p class="mut" id="warn"></p>
 </div>
 
-<h2 id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises">Les taux utilisés</h2>
+<h2 id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises">Les taux utilisés</h2>
 <table><tr><th>Activité</th><th>Taux</th></tr>
 <tr><td>Vente de marchandises</td><td>12,3 %</td></tr>
 <tr><td>Prestation de services (BIC)</td><td>21,2 %</td></tr>
@@ -224,7 +231,7 @@ section.s.alt{background:var(--band)}
 <tr><td>Libéral réglementé (Cipav)</td><td>23,2 %</td></tr></table>
 <p class="mut">Plafonds de chiffre d'affaires 2026 (service-public.fr F23267) : 203 100 € pour la vente, 83 600 € pour les services et les professions libérales. Franchise de TVA (F21746) : 37 500 € pour les services, 85 000 € pour la vente. Sans chiffre d'affaires, aucune cotisation n'est due. L'option « versement libératoire » (impôt payé avec les cotisations) a d'autres taux, non calculés ici.</p>
 
-<footer class="mut"><p>Information générale, pas un conseil fiscal ou social. Vérifiez sur <a href="https://entreprendre.service-public.gouv.fr/">service-public.fr</a> ou <a href="https://www.autoentrepreneur.urssaf.fr/">autoentrepreneur.urssaf.fr</a>. <a href="mentions.html">Mentions</a></p></footer></article><aside class="aside"><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="index.html">← Vérificateur</a></div></aside></div></div></main>
+<footer class="mut"><p>Information générale, pas un conseil fiscal ou social. Vérifiez sur <a href="https://entreprendre.service-public.gouv.fr/">service-public.fr</a> ou <a href="https://www.autoentrepreneur.urssaf.fr/">autoentrepreneur.urssaf.fr</a>. <a href="mentions.html">Mentions</a></p></footer></article><aside class="aside"><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
 <div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
 <div><h4>Pages</h4><ul><li><a href="index.html">Vérificateur</a></li><li><a href="erreurs.html">Erreurs courantes</a></li><li><a href="spf-google-microsoft.html">SPF Google et Microsoft</a></li><li><a href="cotisations-micro.html">Calculateur micro-entreprise</a></li></ul></div>
@@ -246,6 +253,18 @@ function calc(){
 document.getElementById("act").addEventListener("change",calc);
 document.getElementById("ca").addEventListener("input",calc);
 calc();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
 </script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;

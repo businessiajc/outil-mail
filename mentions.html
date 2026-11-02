@@ -192,6 +192,13 @@ section.s.alt{background:var(--band)}
 .aside .card:first-child{border-top:4px solid var(--c2)}.aside .card.related{border-top:4px solid var(--c3)}
 .foot{border-top:4px solid var(--ac)}
 
+/* Niveaux d'études */
+.levels{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.tag{display:inline-block;font:700 .72rem/1 var(--sans);letter-spacing:.03em;padding:6px 10px;border-radius:999px;text-decoration:none;background:var(--ac-soft);color:var(--ac)}
+.tag.t2{background:var(--ac-soft);color:var(--ac)}.tag.t3{background:var(--c2-soft);color:var(--c2)}.tag.t5{background:var(--c3-soft);color:var(--c3)}
+a.tag:hover{filter:brightness(.95);text-decoration:none}
+.levnote{margin:2px 0 22px;font-size:.82rem}
+
 </style>
 </head>
 <body>
@@ -203,10 +210,10 @@ section.s.alt{background:var(--band)}
 <li><strong>Contact :</strong> <a href="mailto:businessia.jc@gmail.com">businessia.jc@gmail.com</a></li>
 <li><strong>Hébergeur :</strong> GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, California 94107, États-Unis</li>
 </ul>
-<h2 id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles">Données personnelles</h2>
+<h2 id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles" id="donnees-personnelles">Données personnelles</h2>
 <p>Cet outil n'enregistre aucune donnée. Le nom de domaine que vous saisissez est transmis à Google (dns.google) et, en secours, à Cloudflare (cloudflare-dns.com) pour interroger les enregistrements DNS publics. Aucun cookie n'est déposé par cet outil. Pour toute question : l'adresse de contact ci-dessus.</p>
-<h2 id="responsabilite" id="responsabilite" id="responsabilite" id="responsabilite" id="responsabilite">Responsabilité</h2>
-<p>L'outil fournit une information générale sur la configuration publique d'un domaine. Il ne constitue ni un audit de sécurité ni un conseil professionnel.</p></article><aside class="aside"><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="index.html">← Vérificateur</a></div></aside></div></div></main>
+<h2 id="responsabilite" id="responsabilite" id="responsabilite" id="responsabilite" id="responsabilite" id="responsabilite" id="responsabilite">Responsabilité</h2>
+<p>L'outil fournit une information générale sur la configuration publique d'un domaine. Il ne constitue ni un audit de sécurité ni un conseil professionnel.</p></article><aside class="aside"><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
 <div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
 <div><h4>Pages</h4><ul><li><a href="index.html">Vérificateur</a></li><li><a href="erreurs.html">Erreurs courantes</a></li><li><a href="spf-google-microsoft.html">SPF Google et Microsoft</a></li><li><a href="cotisations-micro.html">Calculateur micro-entreprise</a></li></ul></div>
@@ -214,6 +221,18 @@ section.s.alt{background:var(--band)}
 </div>
 <div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 2 novembre 2026.</p></div>
 </div></footer>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
 var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
