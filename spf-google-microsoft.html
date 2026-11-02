@@ -207,31 +207,31 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Configurer SPF pour Google Workspace ou Microsoft 365</div><div class="layout"><article class="prose"><h1>Configurer SPF pour Google Workspace ou Microsoft 365</h1><p class="byline">Par Jarod Capella · Mis à jour le 2 novembre 2026 · 2 min de lecture</p>
 <p class="mut">Enregistrements relevés dans la documentation officielle de Google (knowledge.workspace.google.com, page « Set up SPF ») et de Microsoft (learn.microsoft.com, « Set up SPF to identify valid email sources for your Microsoft 365 domain », mise à jour juillet 2026), consultées le 02/11/2026. Vérifiez-les à nouveau avant toute modification : ces valeurs peuvent changer.</p>
 
-<h2 id="principe" id="principe" id="principe" id="principe" id="principe" id="principe" id="principe">Principe</h2>
+<h2 id="principe" id="principe" id="principe" id="principe" id="principe" id="principe" id="principe" id="principe">Principe</h2>
 <p>SPF est un enregistrement DNS de type <strong>TXT</strong> placé sur votre domaine, chez votre registrar ou hébergeur DNS (ni Google ni Microsoft ne le gèrent pour vous). <strong>Un seul</strong> enregistrement SPF par domaine : deux enregistrements provoquent une erreur permanente (permerror).</p>
 
-<h2 id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace">Google Workspace</h2>
+<h2 id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace" id="google-workspace">Google Workspace</h2>
 <div class="item"><code>v=spf1 include:_spf.google.com ~all</code></div>
 <p>C'est la valeur indiquée par Google. <code>~all</code> (échec « souple ») demande de marquer les messages d'autres sources ; Google recommande cette option.</p>
 
-<h2 id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc">Microsoft 365 (offre standard et GCC)</h2>
+<h2 id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc" id="microsoft-365-offre-standard-et-gcc">Microsoft 365 (offre standard et GCC)</h2>
 <div class="item"><code>v=spf1 include:spf.protection.outlook.com -all</code></div>
 <p>Microsoft recommande <code>-all</code> (échec « dur ») à condition de configurer aussi DKIM et DMARC. Les variantes pour les clouds gouvernementaux (GCC High, DoD) et 21Vianet existent : voir la page Microsoft.</p>
 
-<h2 id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi">Si vous utilisez aussi un autre service d'envoi</h2>
+<h2 id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi" id="si-vous-utilisez-aussi-un-autre-service-d-envoi">Si vous utilisez aussi un autre service d'envoi</h2>
 <p>Ajoutez son <code>include:</code> (donné par ce service) dans <strong>le même</strong> enregistrement, avant le <code>all</code> final. Exemple Microsoft : <code>v=spf1 ip4:192.168.0.10 include:spf.protection.outlook.com -all</code>. Pour un service d'envoi en masse que vous ne maîtrisez pas, Microsoft conseille un sous-domaine (par exemple marketing.votredomaine.fr) avec son propre SPF.</p>
 
-<h2 id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft">Erreurs de syntaxe courantes (liste Microsoft)</h2>
+<h2 id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft" id="erreurs-de-syntaxe-courantes-liste-microsoft">Erreurs de syntaxe courantes (liste Microsoft)</h2>
 <ul>
 <li>Point final après le domaine : <code>include:spf.protection.outlook.com.</code></li>
 <li>Signe égal au lieu des deux-points : <code>include=…</code></li>
 <li>Espace après les deux-points : <code>include: spf…</code></li>
 </ul>
 
-<h2 id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns">Limite de 10 requêtes DNS</h2>
+<h2 id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns" id="limite-de-10-requetes-dns">Limite de 10 requêtes DNS</h2>
 <p>Comptent : <code>include</code>, <code>a</code>, <code>mx</code>, <code>exists</code>, <code>redirect</code>. Ne comptent pas : <code>ip4</code>, <code>ip6</code>, <code>all</code>. Les <code>include</code> imbriqués ajoutent des requêtes. Au-delà de 10 : permerror. Ne « aplatissez » pas Microsoft 365 en adresses IP (elles changent souvent, selon Microsoft). Testez votre domaine avec le <a href="./">vérificateur</a> ; voir aussi les <a href="erreurs.html">erreurs fréquentes</a>.</p>
 
-<h2 id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite">Ensuite</h2>
+<h2 id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite" id="ensuite">Ensuite</h2>
 <p>SPF seul ne suffit pas : ajoutez DKIM puis DMARC, en commençant par <code>p=none</code> pour observer avant de durcir.</p>
 <footer class="mut"><a href="mentions.html">Mentions</a></footer></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#principe">Principe</a></li><li><a href="#google-workspace">Google Workspace</a></li><li><a href="#microsoft-365-offre-standard-et-gcc">Microsoft 365 (offre standard et GCC)</a></li><li><a href="#si-vous-utilisez-aussi-un-autre-service-d-envoi">Si vous utilisez aussi un autre service d&#x27;envoi</a></li><li><a href="#erreurs-de-syntaxe-courantes-liste-microsoft">Erreurs de syntaxe courantes (liste Microsoft)</a></li><li><a href="#limite-de-10-requetes-dns">Limite de 10 requêtes DNS</a></li><li><a href="#ensuite">Ensuite</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
@@ -241,6 +241,12 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 </div>
 <div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 2 novembre 2026.</p></div>
 </div></footer>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
 var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
