@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurer SPF pour Google Workspace et Microsoft 365 : enregistrement exact</title>
+<meta name="description" content="Enregistrement SPF à copier pour Google Workspace et Microsoft 365, erreurs à éviter, limite de 10 requêtes DNS. Sources officielles Google et Microsoft.">
+<style>
+:root{--bg:#fff;--fg:#1a1d23;--mut:#5a6270;--bd:#d9dde3;--ok:#0a7d33;--warn:#a15c00;--ko:#b3261e;--ac:#1f4fd8;--card:#f5f7fa}
+@media(prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#e8eaed;--mut:#9aa3b0;--bd:#2c323b;--ok:#4cc16f;--warn:#e0a03a;--ko:#ff7b72;--ac:#7ea2ff;--card:#1c2027}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.7rem;line-height:1.25}h2{font-size:1.2rem;margin-top:2rem}
+form{display:flex;gap:8px;flex-wrap:wrap}input{flex:1 1 220px;padding:12px;border:1px solid var(--bd);border-radius:8px;font-size:1rem;background:var(--bg);color:var(--fg)}
+button{padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-size:1rem;cursor:pointer}
+.res{margin-top:20px}.item{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0}
+.item h3{margin:0 0 6px;font-size:1rem}.ok{color:var(--ok)}.warn{color:var(--warn)}.ko{color:var(--ko)}
+code{word-break:break-all;font-size:.85rem}.mut{color:var(--mut);font-size:.9rem}footer{margin-top:3rem;border-top:1px solid var(--bd);padding-top:12px}
+a{color:var(--ac)}
+</style>
+</head>
+<body>
+<main>
+<p><a href="./">← Vérificateur SPF, DKIM, DMARC</a></p>
+<h1>Configurer SPF pour Google Workspace ou Microsoft 365</h1>
+<p class="mut">Enregistrements relevés dans la documentation officielle de Google (knowledge.workspace.google.com, page « Set up SPF ») et de Microsoft (learn.microsoft.com, « Set up SPF to identify valid email sources for your Microsoft 365 domain », mise à jour juillet 2026), consultées le 02/11/2026. Vérifiez-les à nouveau avant toute modification : ces valeurs peuvent changer.</p>
+
+<h2>Principe</h2>
+<p>SPF est un enregistrement DNS de type <strong>TXT</strong> placé sur votre domaine, chez votre registrar ou hébergeur DNS (ni Google ni Microsoft ne le gèrent pour vous). <strong>Un seul</strong> enregistrement SPF par domaine : deux enregistrements provoquent une erreur permanente (permerror).</p>
+
+<h2>Google Workspace</h2>
+<div class="item"><code>v=spf1 include:_spf.google.com ~all</code></div>
+<p>C'est la valeur indiquée par Google. <code>~all</code> (échec « souple ») demande de marquer les messages d'autres sources ; Google recommande cette option.</p>
+
+<h2>Microsoft 365 (offre standard et GCC)</h2>
+<div class="item"><code>v=spf1 include:spf.protection.outlook.com -all</code></div>
+<p>Microsoft recommande <code>-all</code> (échec « dur ») à condition de configurer aussi DKIM et DMARC. Les variantes pour les clouds gouvernementaux (GCC High, DoD) et 21Vianet existent : voir la page Microsoft.</p>
+
+<h2>Si vous utilisez aussi un autre service d'envoi</h2>
+<p>Ajoutez son <code>include:</code> (donné par ce service) dans <strong>le même</strong> enregistrement, avant le <code>all</code> final. Exemple Microsoft : <code>v=spf1 ip4:192.168.0.10 include:spf.protection.outlook.com -all</code>. Pour un service d'envoi en masse que vous ne maîtrisez pas, Microsoft conseille un sous-domaine (par exemple marketing.votredomaine.fr) avec son propre SPF.</p>
+
+<h2>Erreurs de syntaxe courantes (liste Microsoft)</h2>
+<ul>
+<li>Point final après le domaine : <code>include:spf.protection.outlook.com.</code></li>
+<li>Signe égal au lieu des deux-points : <code>include=…</code></li>
+<li>Espace après les deux-points : <code>include: spf…</code></li>
+</ul>
+
+<h2>Limite de 10 requêtes DNS</h2>
+<p>Comptent : <code>include</code>, <code>a</code>, <code>mx</code>, <code>exists</code>, <code>redirect</code>. Ne comptent pas : <code>ip4</code>, <code>ip6</code>, <code>all</code>. Les <code>include</code> imbriqués ajoutent des requêtes. Au-delà de 10 : permerror. Ne « aplatissez » pas Microsoft 365 en adresses IP (elles changent souvent, selon Microsoft). Testez votre domaine avec le <a href="./">vérificateur</a> ; voir aussi les <a href="erreurs.html">erreurs fréquentes</a>.</p>
+
+<h2>Ensuite</h2>
+<p>SPF seul ne suffit pas : ajoutez DKIM puis DMARC, en commençant par <code>p=none</code> pour observer avant de durcir.</p>
+<footer class="mut"><a href="mentions.html">Mentions</a></footer>
+</main>
+</body>
+</html>
