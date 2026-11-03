@@ -199,6 +199,12 @@ section.s.alt{background:var(--band)}
 a.tag:hover{filter:brightness(.95);text-decoration:none}
 .levnote{margin:2px 0 22px;font-size:.82rem}
 
+/* Jauge (requêtes DNS SPF) */
+.gauge{display:flex;gap:3px;margin:10px 0 4px}
+.gauge i{flex:1;height:10px;border-radius:3px;background:var(--line-2);transition:background .3s}
+.gauge i.on{background:var(--ok)}.gauge.warn i.on{background:var(--warn)}.gauge.ko i.on{background:var(--ko)}
+.gaugelab{font:600 .8rem var(--sans);color:var(--mut);margin:0 0 6px}
+
 </style>
 </head>
 <body>
@@ -206,7 +212,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <header class="top"><div class="wrap"><a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>par Jarod Capella</small></a><nav class="nav" aria-label="Navigation principale"><a href="index.html">Vérificateur</a><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html" aria-current="page">Franchise de TVA</a></nav></div></header>
 <main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Franchise en base de TVA 2026 : seuils et mention de facture</div><div class="layout"><article class="prose"><h1>Franchise en base de TVA 2026 : seuils et mention de facture</h1><p class="byline">Par Jarod Capella · Mis à jour le 3 novembre 2026 · 2 min de lecture</p>
 <p>Source : <a href="https://entreprendre.service-public.gouv.fr/vosdroits/F21746">service-public.fr, fiche F21746</a> (page indiquée « vérifiée le 01 janvier 2026 », relue le 3 novembre 2026). Les seuils 2026 sont inchangés ; le projet de seuil unique à 25 000 € a été abandonné d'après cette page.</p>
-<h2 id="les-seuils" id="les-seuils" id="les-seuils">Les seuils</h2>
+<h2 id="les-seuils" id="les-seuils" id="les-seuils" id="les-seuils" id="les-seuils">Les seuils</h2>
 <table><thead><tr><th>Activité</th><th>Seuil de base (CA de l'année N-1)</th><th>Seuil majoré (CA de l'année N)</th></tr></thead><tbody>
 <tr><td>Vente de marchandises, hébergement</td><td>85 000 €</td><td>93 500 €</td></tr>
 <tr><td>Prestations de services</td><td>37 500 €</td><td>41 250 €</td></tr>
@@ -215,13 +221,13 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <tr><td>Avocat, activités non réglementées</td><td>35 000 €</td><td>38 500 €</td></tr>
 <tr><td>Auteur ou artiste-interprète, livraisons d'œuvres et cessions de droits</td><td>50 000 €</td><td>55 000 €</td></tr>
 <tr><td>Auteur ou artiste-interprète, autres activités</td><td>35 000 €</td><td>38 500 €</td></tr></tbody></table>
-<h2 id="quand-la-tva-devient-due" id="quand-la-tva-devient-due" id="quand-la-tva-devient-due">Quand la TVA devient due</h2>
+<h2 id="quand-la-tva-devient-due" id="quand-la-tva-devient-due" id="quand-la-tva-devient-due" id="quand-la-tva-devient-due" id="quand-la-tva-devient-due">Quand la TVA devient due</h2>
 <ul><li>Si le seuil de base est dépassé sur l'année précédente, la franchise cesse au 1er janvier de l'année suivante.</li>
 <li>Si le seuil majoré est dépassé sur l'année en cours, la TVA s'applique dès le premier jour du dépassement.</li>
 <li>Pour une entreprise créée en cours d'année, le chiffre d'affaires est recalculé au prorata du temps d'activité avant comparaison.</li></ul>
-<h2 id="mention-obligatoire-sur-les-factures" id="mention-obligatoire-sur-les-factures" id="mention-obligatoire-sur-les-factures">Mention obligatoire sur les factures</h2>
+<h2 id="mention-obligatoire-sur-les-factures" id="mention-obligatoire-sur-les-factures" id="mention-obligatoire-sur-les-factures" id="mention-obligatoire-sur-les-factures" id="mention-obligatoire-sur-les-factures">Mention obligatoire sur les factures</h2>
 <p>Chaque facture ou note d'honoraires doit porter la mention « TVA non applicable - article 293 B du CGI ». Sans elle, un redressement est possible en cas de contrôle. Les ventes se facturent alors hors taxes.</p>
-<h2 id="option-pour-la-tva" id="option-pour-la-tva" id="option-pour-la-tva">Option pour la TVA</h2>
+<h2 id="option-pour-la-tva" id="option-pour-la-tva" id="option-pour-la-tva" id="option-pour-la-tva" id="option-pour-la-tva">Option pour la TVA</h2>
 <p>La page décrit l'option pour la TVA : elle prend effet le 1er jour du mois de la déclaration et vaut deux années civiles, avec reconduction tacite. Pour y renoncer, il faut la dénoncer à la fin de la période de 2 ans. Si un crédit de TVA est remboursé, l'option est reconduite pour 2 ans sans possibilité de renoncer pendant cette période.</p>
 <p>Voir aussi le <a href="cotisations-micro.html">calculateur de cotisations micro-entrepreneur</a>. Cette page est informative et ne remplace pas l'avis de l'administration fiscale.</p></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#les-seuils">Les seuils</a></li><li><a href="#quand-la-tva-devient-due">Quand la TVA devient due</a></li><li><a href="#mention-obligatoire-sur-les-factures">Mention obligatoire sur les factures</a></li><li><a href="#option-pour-la-tva">Option pour la TVA</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
@@ -231,6 +237,18 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 </div>
 <div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 3 novembre 2026.</p></div>
 </div></footer>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
 var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});

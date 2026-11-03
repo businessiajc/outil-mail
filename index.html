@@ -199,6 +199,12 @@ section.s.alt{background:var(--band)}
 a.tag:hover{filter:brightness(.95);text-decoration:none}
 .levnote{margin:2px 0 22px;font-size:.82rem}
 
+/* Jauge (requêtes DNS SPF) */
+.gauge{display:flex;gap:3px;margin:10px 0 4px}
+.gauge i{flex:1;height:10px;border-radius:3px;background:var(--line-2);transition:background .3s}
+.gauge i.on{background:var(--ok)}.gauge.warn i.on{background:var(--warn)}.gauge.ko i.on{background:var(--ko)}
+.gaugelab{font:600 .8rem var(--sans);color:var(--mut);margin:0 0 6px}
+
 </style>
 </head>
 <body>
@@ -314,7 +320,9 @@ async function check(d){
     else if(/^~all$/i.test(all)){m="Terminé par <code>~all</code> (échec « souple ») : acceptable pour démarrer. <code>-all</code> est plus strict.";}
     else if(/^-all$/i.test(all)){m="Terminé par <code>-all</code> (échec strict) : bonne pratique.";}
     if(n>10){c="ko";m+=` <strong>${n} requêtes DNS</strong> comptées en suivant les <code>include:</code> : la norme (RFC 7208) en autorise 10 au maximum. Au-delà, SPF renvoie une erreur permanente et vos messages peuvent être rejetés.`;fix="Retirez les services inutilisés ou remplacez-les par des adresses IP (<code>ip4:</code>).";}
-    else m+=` Requêtes DNS comptées : <strong>${n} sur 10</strong> autorisées.`+(cnt.err?" Décompte partiel : "+esc(cnt.err)+".":"");
+    else m+=` `+(cnt.err?" Décompte partiel : "+esc(cnt.err)+".":"");
+    const used=Math.min(n,10),gc=n>10?"ko":n>=8?"warn":"";
+    m+=`<div class="gaugelab">Requêtes DNS : ${n} utilisées sur 10 autorisées</div><div class="gauge ${gc}" aria-hidden="true">${Array.from({length:10},(_,i)=>`<i class="${i<used?"on":""}"></i>`).join("")}</div>`;
     res.push(item(c,"SPF","Expéditeurs autorisés",m,s,fix));}
   /* DKIM */
   const found=[];

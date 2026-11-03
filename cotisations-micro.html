@@ -199,6 +199,12 @@ section.s.alt{background:var(--band)}
 a.tag:hover{filter:brightness(.95);text-decoration:none}
 .levnote{margin:2px 0 22px;font-size:.82rem}
 
+/* Jauge (requêtes DNS SPF) */
+.gauge{display:flex;gap:3px;margin:10px 0 4px}
+.gauge i{flex:1;height:10px;border-radius:3px;background:var(--line-2);transition:background .3s}
+.gauge i.on{background:var(--ok)}.gauge.warn i.on{background:var(--warn)}.gauge.ko i.on{background:var(--ko)}
+.gaugelab{font:600 .8rem var(--sans);color:var(--mut);margin:0 0 6px}
+
 </style>
 </head>
 <body>
@@ -223,7 +229,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <p class="mut" id="warn"></p>
 </div>
 
-<h2 id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises">Les taux utilisés</h2>
+<h2 id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises" id="les-taux-utilises">Les taux utilisés</h2>
 <table><tr><th>Activité</th><th>Taux</th></tr>
 <tr><td>Vente de marchandises</td><td>12,3 %</td></tr>
 <tr><td>Prestation de services (BIC)</td><td>21,2 %</td></tr>
@@ -253,6 +259,18 @@ function calc(){
 document.getElementById("act").addEventListener("change",calc);
 document.getElementById("ca").addEventListener("input",calc);
 calc();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
 </script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;

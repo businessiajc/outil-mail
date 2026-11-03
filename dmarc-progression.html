@@ -199,6 +199,12 @@ section.s.alt{background:var(--band)}
 a.tag:hover{filter:brightness(.95);text-decoration:none}
 .levnote{margin:2px 0 22px;font-size:.82rem}
 
+/* Jauge (requêtes DNS SPF) */
+.gauge{display:flex;gap:3px;margin:10px 0 4px}
+.gauge i{flex:1;height:10px;border-radius:3px;background:var(--line-2);transition:background .3s}
+.gauge i.on{background:var(--ok)}.gauge.warn i.on{background:var(--warn)}.gauge.ko i.on{background:var(--ko)}
+.gaugelab{font:600 .8rem var(--sans);color:var(--mut);margin:0 0 6px}
+
 </style>
 </head>
 <body>
@@ -206,7 +212,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <header class="top"><div class="wrap"><a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>par Jarod Capella</small></a><nav class="nav" aria-label="Navigation principale"><a href="index.html">Vérificateur</a><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a></nav></div></header>
 <main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Passer de DMARC p=none à reject : étapes et réglages</div><div class="layout"><article class="prose"><h1>Passer de DMARC p=none à reject : étapes et réglages</h1><p class="byline">Par Jarod Capella · Mis à jour le 3 novembre 2026 · 2 min de lecture</p>
 <p>Un enregistrement DMARC commence en général par <code>p=none</code>, qui n'agit sur aucun message mais permet de recevoir des rapports. Cette page décrit les réglages qui permettent de durcir la politique par étapes, d'après la RFC 7489 (section 6.3).</p>
-<h2 id="les-reglages-a-connaitre" id="les-reglages-a-connaitre">Les réglages à connaître</h2>
+<h2 id="les-reglages-a-connaitre" id="les-reglages-a-connaitre" id="les-reglages-a-connaitre" id="les-reglages-a-connaitre">Les réglages à connaître</h2>
 <ul>
 <li><code>p</code> : politique demandée aux destinataires. Obligatoire. Valeurs : <code>none</code>, <code>quarantine</code>, <code>reject</code>.</li>
 <li><code>sp</code> : politique pour les sous-domaines. Facultative ; si elle est absente, <code>p</code> s'applique aussi aux sous-domaines.</li>
@@ -214,7 +220,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <li><code>adkim</code> et <code>aspf</code> : alignement DKIM et SPF, <code>r</code> (souple) ou <code>s</code> (strict). Facultatifs, <code>r</code> par défaut.</li>
 <li><code>rua</code> : adresse qui reçoit les rapports agrégés. Facultative.</li>
 </ul>
-<h2 id="une-progression-possible" id="une-progression-possible">Une progression possible</h2>
+<h2 id="une-progression-possible" id="une-progression-possible" id="une-progression-possible" id="une-progression-possible">Une progression possible</h2>
 <ol>
 <li><strong>Observer</strong> : <code>v=DMARC1; p=none; rua=mailto:dmarc@exemple.fr</code>. Lisez les rapports (voir <a href="rapport-dmarc.html">Lire un rapport DMARC</a>) et listez tous les services qui envoient en votre nom.</li>
 <li><strong>Corriger</strong> : configurez SPF et DKIM pour chaque service légitime (voir <a href="spf-google-microsoft.html">SPF Google et Microsoft</a> et <a href="erreurs.html">Erreurs courantes</a>) jusqu'à ce que les envois légitimes passent l'alignement.</li>
@@ -222,14 +228,14 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <li><strong>Passer à reject</strong> : <code>p=reject</code> une fois les rapports propres.</li>
 </ol>
 <p>Les paliers de <code>pct</code> (10, puis 50, etc.) sont un exemple de méthode, pas une règle de la RFC : adaptez-les au volume de vos envois.</p>
-<h2 id="precautions" id="precautions">Précautions</h2>
+<h2 id="precautions" id="precautions" id="precautions" id="precautions">Précautions</h2>
 <ul>
 <li>La RFC précise (section 6.7) qu'une politique <code>p=none</code> ne doit pas modifier le traitement habituel des messages.</li>
 <li>Avec <code>p=reject</code>, un service légitime oublié verra ses messages refusés : c'est la raison de l'étape d'observation.</li>
 <li>Si vos sous-domaines envoient des messages, vérifiez le comportement de <code>sp</code> avant de durcir.</li>
 </ul>
 <p>Contrôlez votre enregistrement avec le <a href="index.html">vérificateur</a>.</p>
-<h2 id="sources" id="sources">Sources</h2>
+<h2 id="sources" id="sources" id="sources" id="sources">Sources</h2>
 <ul><li>RFC 7489, sections 6.3, 6.6.4 et 6.7, https://www.rfc-editor.org/rfc/rfc7489 (lue le 2026-11-03).</li></ul></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#les-reglages-a-connaitre">Les réglages à connaître</a></li><li><a href="#une-progression-possible">Une progression possible</a></li><li><a href="#precautions">Précautions</a></li><li><a href="#sources">Sources</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
 <div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
@@ -238,6 +244,18 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 </div>
 <div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 3 novembre 2026.</p></div>
 </div></footer>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
 var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
