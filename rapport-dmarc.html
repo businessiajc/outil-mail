@@ -206,18 +206,18 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <header class="top"><div class="wrap"><a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>par Jarod Capella</small></a><nav class="nav" aria-label="Navigation principale"><a href="index.html">Vérificateur</a><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a></nav></div></header>
 <main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Lire un rapport DMARC agrégé (XML) : champ par champ</div><div class="layout"><article class="prose"><h1>Lire un rapport DMARC agrégé (XML) : champ par champ</h1><p class="byline">Par Jarod Capella · Mis à jour le 3 novembre 2026 · 2 min de lecture</p>
 <p>Quand votre enregistrement DMARC contient une adresse <code>rua</code>, les grands fournisseurs de messagerie vous envoient des rapports. Ils sont en XML, rarement lisibles tels quels. Cette page décrit leur structure, d'après la RFC 7489 (annexe C et sections 6 et 7).</p>
-<h2 id="demander-les-rapports" id="demander-les-rapports" id="demander-les-rapports" id="demander-les-rapports">Demander les rapports</h2>
+<h2 id="demander-les-rapports" id="demander-les-rapports" id="demander-les-rapports" id="demander-les-rapports" id="demander-les-rapports">Demander les rapports</h2>
 <p>Ajoutez la balise <code>rua</code> à l'enregistrement DMARC, par exemple <code>v=DMARC1; p=none; rua=mailto:dmarc@exemple.fr</code>. La RFC précise que, sans <code>rua</code>, les destinataires ne doivent pas générer de rapports agrégés. Les destinataires doivent savoir gérer une adresse <code>mailto:</code>. Une limite de taille peut s'ajouter, par exemple <code>mailto:rapports@exemple.fr!50m</code>.</p>
 <p>La balise <code>ri</code> (intervalle) vaut 86400 secondes par défaut, soit un rapport par jour. La balise <code>pct</code> (0 à 100, 100 par défaut) sert à appliquer la politique progressivement ; elle ne concerne pas l'envoi des rapports eux-mêmes.</p>
-<h2 id="le-fichier-recu" id="le-fichier-recu" id="le-fichier-recu" id="le-fichier-recu">Le fichier reçu</h2>
+<h2 id="le-fichier-recu" id="le-fichier-recu" id="le-fichier-recu" id="le-fichier-recu" id="le-fichier-recu">Le fichier reçu</h2>
 <p>Le rapport est un fichier XML, en principe compressé en GZIP (extension <code>xml.gz</code>, sinon <code>xml</code>). Le sujet du message commence par « Report Domain: », suivi de « Submitter: » et « Report-ID: ». Les périodes de 24 heures commencent à 00:00 UTC.</p>
-<h2 id="structure-du-xml" id="structure-du-xml" id="structure-du-xml" id="structure-du-xml">Structure du XML</h2>
+<h2 id="structure-du-xml" id="structure-du-xml" id="structure-du-xml" id="structure-du-xml" id="structure-du-xml">Structure du XML</h2>
 <ul>
 <li><code>report_metadata</code> : <code>org_name</code> (qui envoie le rapport), <code>email</code>, <code>report_id</code>, <code>date_range</code> (<code>begin</code> et <code>end</code>).</li>
 <li><code>policy_published</code> : la politique que le destinataire a trouvée pour votre domaine (<code>domain</code>, <code>p</code>, <code>sp</code>, <code>pct</code>, <code>fo</code>, et selon les cas <code>adkim</code>, <code>aspf</code>). Vérifiez qu'elle correspond à ce que vous avez publié.</li>
 <li><code>record</code> (répété) : une ligne par groupe de messages, avec <code>row</code>, <code>identifiers</code> et <code>auth_results</code>.</li>
 </ul>
-<h2 id="lire-une-ligne-record" id="lire-une-ligne-record" id="lire-une-ligne-record" id="lire-une-ligne-record">Lire une ligne (record)</h2>
+<h2 id="lire-une-ligne-record" id="lire-une-ligne-record" id="lire-une-ligne-record" id="lire-une-ligne-record" id="lire-une-ligne-record">Lire une ligne (record)</h2>
 <ul>
 <li><code>source_ip</code> : l'adresse IP qui a envoyé les messages. C'est ce qui permet d'identifier un service d'envoi que vous aviez oublié.</li>
 <li><code>count</code> : le nombre de messages concernés.</li>
@@ -225,14 +225,14 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <li><code>identifiers</code> : <code>header_from</code> (l'adresse affichée à l'utilisateur) et <code>envelope_from</code>.</li>
 <li><code>auth_results</code> : résultats bruts de SPF et de DKIM, avec le domaine testé (et le sélecteur pour DKIM). Un <code>pass</code> ici avec un <code>fail</code> dans <code>policy_evaluated</code> signale un défaut d'alignement : le domaine authentifié n'est pas celui de l'adresse affichée.</li>
 </ul>
-<h2 id="que-chercher-en-pratique" id="que-chercher-en-pratique" id="que-chercher-en-pratique" id="que-chercher-en-pratique">Que chercher en pratique</h2>
+<h2 id="que-chercher-en-pratique" id="que-chercher-en-pratique" id="que-chercher-en-pratique" id="que-chercher-en-pratique" id="que-chercher-en-pratique">Que chercher en pratique</h2>
 <ol>
 <li>Les IP au volume <code>count</code> élevé avec <code>spf</code> et <code>dkim</code> à <code>fail</code> : soit un service légitime non configuré, soit une usurpation de votre domaine.</li>
 <li>Les services légitimes (newsletter, facturation, outil de ticketing) dont l'alignement échoue : à corriger avant de passer de <code>p=none</code> à <code>quarantine</code> ou <code>reject</code>.</li>
 <li>Une <code>policy_published</code> différente de votre enregistrement : erreur de publication ou mauvais domaine.</li>
 </ol>
 <p>Pour contrôler votre enregistrement, utilisez le <a href="index.html">vérificateur</a> ; les erreurs fréquentes sont décrites sur la page <a href="erreurs.html">Erreurs courantes</a>.</p>
-<h2 id="sources" id="sources" id="sources" id="sources">Sources</h2>
+<h2 id="sources" id="sources" id="sources" id="sources" id="sources">Sources</h2>
 <ul><li>RFC 7489, « Domain-based Message Authentication, Reporting, and Conformance (DMARC) », sections 6.3, 7.2 et annexe C, https://www.rfc-editor.org/rfc/rfc7489 (lue le 2026-11-02).</li></ul></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#demander-les-rapports">Demander les rapports</a></li><li><a href="#le-fichier-recu">Le fichier reçu</a></li><li><a href="#structure-du-xml">Structure du XML</a></li><li><a href="#lire-une-ligne-record">Lire une ligne (record)</a></li><li><a href="#que-chercher-en-pratique">Que chercher en pratique</a></li><li><a href="#sources">Sources</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
 <div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
@@ -241,6 +241,12 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 </div>
 <div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 3 novembre 2026.</p></div>
 </div></footer>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
 var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
