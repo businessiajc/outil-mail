@@ -272,7 +272,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 3 novembre 2026.</p></div>
 </div></footer>
 <script>
-const SEL=["default","google","selector1","selector2","k1","k2","s1","s2","mail","dkim","smtp","mandrill","mailo","scph0319","everlytickey1","zoho"];
+const SEL=["default","google","selector1","selector2","k1","k2","k3","s1","s2","mail","dkim","smtp","smtpapi","mandrill","mailo","scph0319","everlytickey1","everlytickey2","zoho","zmail","protonmail","protonmail2","protonmail3","fm1","fm2","fm3","sig1","key1","key2","mx","pic","krs","mailjet","sib","brevo","cm","hs1","hs2","mxvault","dkim1","dkim2","ovh","ox","sendinblue","amazonses","mta"];
 async function doh(name,type){
   const urls=[`https://dns.google/resolve?name=${encodeURIComponent(name)}&type=${type}`,
               `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`];
@@ -328,7 +328,7 @@ async function check(d){
   /* DKIM */
   const found=[];
   await Promise.all(SEL.map(async s=>{const r=await doh(s+"._domainkey."+d,"TXT");const t=r&&txt(r.Answer).find(x=>/v=DKIM1|k=rsa|p=/i.test(x));if(t)found.push(s+" → "+t.slice(0,90)+"…");}));
-  res.push(found.length?item("ok","DKIM","Signature des messages","Signature DKIM trouvée pour "+found.length+" sélecteur(s).",found.join("\n")):item("warn","DKIM","Signature des messages","Aucune clé DKIM trouvée parmi les sélecteurs courants testés. Cela ne prouve pas que DKIM est absent : votre prestataire utilise peut-être un autre sélecteur.","","Vérifiez dans l'interface de votre messagerie (Google Workspace, Microsoft 365, OVH…) que la signature DKIM est activée."));
+  res.push(found.length?item("ok","DKIM","Signature des messages","Signature DKIM trouvée pour "+found.length+" sélecteur(s).",found.join("\n")):item("warn","DKIM","Signature des messages","Aucune clé DKIM trouvée parmi les "+SEL.length+" sélecteurs courants testés. Cela ne prouve pas que DKIM est absent : votre prestataire utilise peut-être un autre sélecteur.","","Vérifiez dans l'interface de votre messagerie (Google Workspace, Microsoft 365, OVH…) que la signature DKIM est activée."));
   /* DMARC */
   const dmr=txt(dm.Answer).filter(t=>/^v=DMARC1/i.test(t));
   if(dmr.length===0)res.push(item("ko","DMARC","Politique et rapports","Aucun enregistrement DMARC trouvé sur <code>_dmarc."+esc(d)+"</code>. Sans lui, les destinataires ne savent pas quoi faire des messages qui échouent aux contrôles.","","Créez un enregistrement TXT <code>_dmarc</code> : <code>v=DMARC1; p=none; rua=mailto:votre@adresse</code>. Vous recevrez des rapports, puis vous durcirez la politique."));
