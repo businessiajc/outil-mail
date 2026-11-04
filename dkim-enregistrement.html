@@ -1,0 +1,24 @@
+<main><h1>Lire et vérifier un enregistrement DKIM : sélecteur, clé et étiquettes</h1>
+<p>Un enregistrement DKIM est un texte publié dans le DNS de votre domaine. Il contient la clé publique qui permet aux destinataires de vérifier la signature de vos messages. Cette page décrit où il se trouve et ce que chaque étiquette signifie, d'après la RFC 6376 (sections 3.3.3, 3.6.1 et 3.6.2.1, lues le 4 novembre 2026).</p>
+<h2>Où se trouve l'enregistrement</h2>
+<p>Toutes les clés DKIM sont stockées sous un sous-domaine nommé <code>_domainkey</code>. Le nom complet se compose du sélecteur, de <code>._domainkey.</code> puis du domaine. Exemple de la RFC : pour le domaine <code>example.com</code> et le sélecteur <code>foo.bar</code>, la requête DNS porte sur <code>foo.bar._domainkey.example.com</code>. Le sélecteur est choisi par l'expéditeur ou par son prestataire : vous le lisez dans l'en-tête <code>DKIM-Signature</code> d'un message reçu, étiquette <code>s=</code>. Sans lui, impossible de deviner l'enregistrement.</p>
+<h2>Les étiquettes de l'enregistrement</h2>
+<ul>
+<li><code>v=DKIM1</code> : version. Si elle est présente, elle doit valoir exactement <code>DKIM1</code>. Valeur par défaut : <code>DKIM1</code>.</li>
+<li><code>k=rsa</code> : type de clé. Les signataires et les vérificateurs doivent gérer <code>rsa</code>, qui est la valeur par défaut.</li>
+<li><code>p=</code> : la clé publique, encodée en base64. Une valeur vide signifie que la clé a été révoquée.</li>
+<li><code>t=y</code> : le domaine est en phase de test DKIM. Selon la RFC, un vérificateur ne doit pas traiter différemment un message signé en mode test dont la signature échoue et un message non signé. Retirez ce drapeau une fois la configuration validée.</li>
+</ul>
+<p>Exemple (clé tronquée) :</p>
+<pre><code>selecteur1._domainkey.exemple.fr  TXT  "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0B..."</code></pre>
+<h2>Taille de clé</h2>
+<p>Le texte de la RFC 6376 §3.3.3 impose aux signataires des clés RSA d'au moins 1024 bits pour les clés de longue durée, et aux vérificateurs de savoir valider des clés de 512 à 2048 bits. Cette RFC a été mise à jour depuis par d'autres textes que je n'ai pas lus : regardez ce que propose votre fournisseur de messagerie, qui génère la clé pour vous dans la plupart des cas, et choisissez la taille la plus élevée qu'il propose.</p>
+<h2>Les erreurs fréquentes</h2>
+<ul>
+<li><strong>Mauvais sélecteur</strong> : l'enregistrement existe sous un autre nom que celui de l'en-tête <code>s=</code>. Comparez les deux caractère par caractère.</li>
+<li><strong>Clé coupée</strong> : certains hébergeurs DNS imposent de découper la valeur en plusieurs morceaux entre guillemets. Vérifiez qu'aucun caractère ne manque ni qu'un espace ne s'est glissé dans <code>p=</code>.</li>
+<li><strong><code>p=</code> vide</strong> : la clé est considérée comme révoquée, donc toutes les signatures échouent.</li>
+<li><strong>Enregistrement sur le mauvais domaine</strong> : la clé doit être sous le domaine indiqué par <code>d=</code> dans la signature, pas sous celui de l'adresse d'affichage si ce n'est pas le même.</li>
+</ul>
+<p>Pour tester un domaine, utilisez le <a href="index.html">vérificateur de la page d'accueil</a>. DKIM seul ne suffit pas à bloquer l'usurpation : voir <a href="dmarc-progression.html">durcir une politique DMARC</a> et <a href="erreurs.html">les erreurs courantes</a>.</p>
+</main>
