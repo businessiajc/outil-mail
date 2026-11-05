@@ -334,11 +334,16 @@ async function check(d){
   if(dmr.length===0)res.push(item("ko","DMARC","Politique et rapports","Aucun enregistrement DMARC trouvé sur <code>_dmarc."+esc(d)+"</code>. Sans lui, les destinataires ne savent pas quoi faire des messages qui échouent aux contrôles.","","Créez un enregistrement TXT <code>_dmarc</code> : <code>v=DMARC1; p=none; rua=mailto:votre@adresse</code>. Vous recevrez des rapports, puis vous durcirez la politique."));
   else{const t=dmr[0];const p=(t.match(/;\s*p=(\w+)/i)||t.match(/^v=DMARC1;?\s*p=(\w+)/i)||[])[1];const rua=/rua=/i.test(t);
     let c="ok",m="Enregistrement DMARC présent. ",fix="";
-    if(!p){c="ko";m+="Aucune politique <code>p=</code> : l'enregistrement est invalide.";fix="Ajoutez <code>p=none</code>, <code>p=quarantine</code> ou <code>p=reject</code>.";}
+    if(!p){c="ko";m+="Aucune politique <code>p=</code>. Selon la RFC 9989 (section 4.10.1), un récepteur applique alors <code>p=none</code> si <code>rua</code> contient une adresse valide, et aucun traitement DMARC sinon.";fix="Ajoutez <code>p=none</code>, <code>p=quarantine</code> ou <code>p=reject</code>.";}
     else if(p==="none"){c="warn";m+="Politique <code>p=none</code> : surveillance seule, aucun message n'est bloqué. C'est une étape de départ normale.";fix="Après analyse des rapports, passez à <code>quarantine</code> puis <code>reject</code>.";}
     else if(p==="quarantine"){m+="Politique <code>p=quarantine</code> : les messages en échec vont en indésirables.";}
     else if(p==="reject"){m+="Politique <code>p=reject</code> : les messages en échec sont refusés. Niveau le plus protecteur.";}
     if(!rua){m+=" Aucune adresse de rapports (<code>rua=</code>) : vous ne recevez aucun retour.";if(c==="ok")c="warn";fix=(fix?fix+" ":"")+"Ajoutez <code>rua=mailto:votre@adresse</code> pour recevoir les rapports.";}
+    const pc=(t.match(/(?:^|;)\s*pct=(\d+)/i)||[])[1],ty=/(?:^|;)\s*t=y\s*(;|$)/i.test(t);
+    if(ty&&p&&p!=="none"){m+=" Mode test <code>t=y</code> : les récepteurs à jour de la RFC 9989 appliquent la politique d'un cran en dessous (<code>"+(p==="reject"?"quarantine":"none")+"</code>).";if(c==="ok")c="warn";fix=(fix?fix+" ":"")+"Quand les rapports sont propres, retirez <code>t=y</code> (et <code>pct=0</code> s'il est présent).";}
+    if(pc!==undefined){const n=+pc;
+      if(n>0&&n<100){m+=" <code>pct="+n+"</code> : la RFC 9989 (mai 2026) retire cette balise, car les valeurs autres que 0 et 100 étaient appliquées de façon inexacte selon les récepteurs.";if(c==="ok")c="warn";fix=(fix?fix+" ":"")+"Pour tester, utilisez <code>pct=0; t=y</code> ; sinon retirez <code>pct</code>.";}
+      else if(n===0&&!ty&&p&&p!=="none"){m+=" <code>pct=0</code> sans <code>t=y</code> : la RFC 9989 remplace <code>pct=0</code> par <code>t=y</code>.";if(c==="ok")c="warn";fix=(fix?fix+" ":"")+"Ajoutez <code>t=y</code> à côté de <code>pct=0</code> : les anciens récepteurs ignorent <code>t</code>, les nouveaux le lisent.";}}
     res.push(item(c,"DMARC","Politique et rapports",m,t,fix));}
   /* MX */
   const mxs=(mx.Answer||[]).filter(x=>x.type===15);
