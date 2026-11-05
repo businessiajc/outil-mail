@@ -211,7 +211,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <header class="top"><div class="wrap"><a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>par Jarod Capella</small></a><nav class="nav" aria-label="Navigation principale"><a href="index.html">Vérificateur</a><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a><a href="generateur-dmarc.html" aria-current="page">Générateur DMARC</a></nav></div></header>
-<main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Générateur d&#x27;enregistrement DMARC</div><div class="layout"><article class="prose"><h1>Générateur d'enregistrement DMARC</h1><p class="byline">Par Jarod Capella · Mis à jour le 5 novembre 2026 · 1 min de lecture</p>
+<main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Générateur d&#x27;enregistrement DMARC</div><div class="layout"><article class="prose"><h1>Générateur d'enregistrement DMARC</h1><p class="byline">Par Jarod Capella · Mis à jour le 5 novembre 2026 · 2 min de lecture</p>
 <p>Renseignez les champs, copiez le résultat, collez-le dans une entrée TXT de votre zone DNS. Rien n'est envoyé : le calcul se fait dans votre navigateur.</p>
 <form id="f" onsubmit="return false">
 <p><label>Domaine (ex. exemple.fr) <input id="dom" type="text" value="exemple.fr" autocomplete="off"></label></p>
@@ -230,15 +230,16 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <h2 id="ce-que-fait-chaque-balise">Ce que fait chaque balise</h2>
 <ul>
 <li><code>v=DMARC1</code> : obligatoire, doit venir en premier, suivie de <code>p</code>.</li>
-<li><code>p</code> : <code>none</code>, <code>quarantine</code> ou <code>reject</code>. Obligatoire.</li>
+<li><code>p</code> : <code>none</code>, <code>quarantine</code> ou <code>reject</code>. À toujours mettre : sans <code>p</code> valide, le récepteur fait comme si <code>p=none</code> était publié si <code>rua</code> contient une adresse valide, et n'applique aucun traitement DMARC sinon (RFC 9989, section 4.10.1).</li>
 <li><code>sp</code> : politique des sous-domaines. Si elle est absente, la valeur de <code>p</code> s'applique.</li>
-<li><code>pct</code> : entier de 0 à 100, défaut 100. Part des messages en échec soumis à la politique.</li>
+<li><code>pct</code> : entier de 0 à 100, défaut 100, dans la RFC 7489. La RFC 9989 (mai 2026) le retire : selon son annexe A.6, les valeurs autres que 0 et 100 étaient appliquées de façon inexacte et variable d'un récepteur à l'autre. Le générateur vous alerte si vous choisissez une autre valeur.</li>
+<li><code>t</code> : mode test, créé par la RFC 9989. <code>t=y</code> demande d'appliquer la politique d'un cran en dessous (<code>reject</code> traité comme <code>quarantine</code>, <code>quarantine</code> comme <code>none</code>) ; il joue le rôle de <code>pct=0</code>. Quand vous mettez <code>pct=0</code>, le générateur ajoute <code>t=y</code> : un récepteur resté sur la RFC 7489 l'ignore, les deux textes imposant d'ignorer une balise inconnue.</li>
 <li><code>rua</code> : adresses <code>mailto:</code> qui reçoivent les rapports agrégés, séparées par des virgules.</li>
 <li><code>adkim</code>, <code>aspf</code> : <code>r</code> (relaxed) ou <code>s</code> (strict), défaut <code>r</code>.</li>
 </ul>
 <h2 id="avant-de-publier">Avant de publier</h2>
 <p>Commencez par <code>p=none</code> avec une adresse <code>rua</code>, lisez les rapports pendant quelques semaines, puis durcissez (voir <a href="dmarc-progression.html">la progression none, quarantine, reject</a>). Si l'adresse de rapports est sur un autre domaine que le vôtre, le domaine de réception doit publier une autorisation, sinon les récepteurs ignorent l'adresse (RFC 7489, section 7.1). Vérifiez ensuite avec le <a href="index.html">vérificateur</a>.</p>
-<p>Réserve : la RFC 7489 a été déclarée obsolète et remplacée par les RFC 9989, 9990 et 9991. Les balises ci-dessus sont celles de la RFC 7489, toujours lues par les récepteurs. Les nouveaux textes modifient certains détails : relisez-les avant un déploiement sensible. Lecture de la RFC 7489 le 05/11/2026 (section 6.3 par résumé, à recouper).</p></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#resultat">Résultat</a></li><li><a href="#ce-que-fait-chaque-balise">Ce que fait chaque balise</a></li><li><a href="#avant-de-publier">Avant de publier</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
+<p>Réserve : la RFC 7489 a été déclarée obsolète et remplacée par les RFC 9989, 9990 et 9991. Les deux textes ont été lus en version texte sur rfc-editor.org le 05/11/2026 (RFC 7489 section 6.3, RFC 9989 sections 4.7, 4.10.1 et annexe A.6). La RFC 9989 change d'autres points que ceux décrits ici : relisez-la avant un déploiement sensible.</p></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#resultat">Résultat</a></li><li><a href="#ce-que-fait-chaque-balise">Ce que fait chaque balise</a></li><li><a href="#avant-de-publier">Avant de publier</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
 <footer class="foot"><div class="wrap"><div class="g">
 <div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
 <div><h4>Pages</h4><ul><li><a href="index.html">Vérificateur</a></li><li><a href="erreurs.html">Erreurs courantes</a></li><li><a href="spf-google-microsoft.html">SPF Google et Microsoft</a></li><li><a href="cotisations-micro.html">Calculateur micro-entreprise</a></li><li><a href="franchise-tva.html">Franchise de TVA</a></li><li><a href="generateur-dmarc.html">Générateur DMARC</a></li></ul></div>
@@ -251,11 +252,13 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 var $=function(i){return document.getElementById(i)};
 function maj(){
 var d=$('dom').value.trim().replace(/^_dmarc\./,'');
-var p=$('p').value,pct=parseInt($('pct').value,10),rua=$('rua').value.trim();
+var p=$('p').value,pctS=$('pct').value.trim(),pct=pctS===''?100:/^\d{1,3}$/.test(pctS)?parseInt(pctS,10):NaN,rua=$('rua').value.trim();
 var al=[],t=['v=DMARC1','p='+p];
 if($('sp').value)t.push('sp='+$('sp').value);
 if(isNaN(pct)||pct<0||pct>100){al.push('Le pourcentage doit être un entier de 0 à 100.');pct=100}
 if(pct!==100)t.push('pct='+pct);
+if(pct===0&&p!=='none')t.push('t=y');
+if(pct>0&&pct<100)al.push('pct='+pct+' : la RFC 9989 retire pct, car les valeurs autres que 0 et 100 sont appliquées de façon inexacte. Préférez 0 (test) ou 100.');
 if(rua){
 var l=rua.split(/[\s,;]+/).filter(Boolean),bad=0;
 l=l.map(function(a){a=a.replace(/^mailto:/i,'');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a))bad=1;return 'mailto:'+a});
