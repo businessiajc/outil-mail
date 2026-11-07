@@ -1,0 +1,104 @@
+date,secteur,domaine,spf,requetes_spf,dmarc_p,rua,mta_sts_txt,bimi_txt
+2026-11-07,E-commerce et vente en ligne,amazon.fr,1,6,quarantine,1,0,1
+2026-11-07,E-commerce et vente en ligne,cdiscount.com,1,10,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,rakuten.com,1,6,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,vinted.fr,1,2,quarantine,1,0,1
+2026-11-07,E-commerce et vente en ligne,leboncoin.fr,1,8,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,veepee.fr,1,3,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,backmarket.fr,1,2,quarantine,1,0,1
+2026-11-07,E-commerce et vente en ligne,manomano.fr,1,3,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,darty.com,1,2,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,fnac.com,1,8,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,ldlc.com,1,8,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,materiel.net,1,5,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,rueducommerce.fr,1,8,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,conforama.fr,1,10,quarantine,1,0,0
+2026-11-07,E-commerce et vente en ligne,but.fr,1,8,quarantine,1,0,0
+2026-11-07,E-commerce et vente en ligne,ikea.com,1,2,reject,1,1,1
+2026-11-07,E-commerce et vente en ligne,castorama.fr,1,5,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,bricodepot.fr,1,3,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,auchan.fr,1,7,quarantine,1,0,0
+2026-11-07,E-commerce et vente en ligne,intermarche.com,1,3,none,1,0,0
+2026-11-07,E-commerce et vente en ligne,monoprix.fr,1,7,quarantine,1,0,0
+2026-11-07,E-commerce et vente en ligne,picard.fr,1,4,none,1,0,0
+2026-11-07,E-commerce et vente en ligne,zalando.fr,1,4,none,1,0,1
+2026-11-07,E-commerce et vente en ligne,laredoute.fr,1,9,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,kiabi.com,1,6,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,sephora.fr,1,7,reject,1,0,0
+2026-11-07,E-commerce et vente en ligne,nocibe.fr,1,1,absent,0,0,0
+2026-11-07,E-commerce et vente en ligne,yves-rocher.fr,1,1,reject,1,0,1
+2026-11-07,E-commerce et vente en ligne,cultura.com,1,7,quarantine,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",boursorama.com,1,0,quarantine,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",fortuneo.fr,1,4,reject,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",ing.fr,1,2,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",hellobank.fr,1,3,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",revolut.com,1,8,quarantine,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",qonto.com,1,7,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",lcl.fr,1,9,none,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",caisse-epargne.fr,1,1,reject,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",banquepopulaire.fr,1,1,reject,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",labanquepostale.fr,1,6,none,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",cic.fr,1,0,quarantine,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",creditmutuel.fr,1,0,quarantine,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",axa.fr,1,6,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",maif.fr,1,8,quarantine,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",macif.fr,1,6,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",maaf.fr,1,1,reject,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",matmut.fr,1,2,reject,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",groupama.fr,1,5,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",allianz.fr,1,8,reject,1,0,1
+2026-11-07,"Banques, assurances, mutuelles",harmonie-mutuelle.fr,1,2,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",malakoffhumanis.com,1,3,none,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",swisslife.fr,1,7,reject,1,0,0
+2026-11-07,"Banques, assurances, mutuelles",generali.fr,1,11,none,1,0,0
+2026-11-07,Grandes villes,paris.fr,1,10,none,1,0,0
+2026-11-07,Grandes villes,marseille.fr,1,8,quarantine,1,1,1
+2026-11-07,Grandes villes,lyon.fr,1,2,none,1,0,0
+2026-11-07,Grandes villes,toulouse.fr,1,6,quarantine,1,0,0
+2026-11-07,Grandes villes,nice.fr,1,4,none,1,0,0
+2026-11-07,Grandes villes,nantes.fr,1,2,none,1,0,0
+2026-11-07,Grandes villes,montpellier.fr,1,13,quarantine,1,0,0
+2026-11-07,Grandes villes,strasbourg.eu,1,0,none,1,0,0
+2026-11-07,Grandes villes,bordeaux.fr,1,6,reject,1,0,0
+2026-11-07,Grandes villes,lille.fr,1,5,none,1,0,0
+2026-11-07,Grandes villes,rennes.fr,0,,none,1,0,0
+2026-11-07,Grandes villes,reims.fr,1,7,quarantine,1,0,0
+2026-11-07,Grandes villes,toulon.fr,1,2,none,1,0,0
+2026-11-07,Grandes villes,grenoble.fr,1,2,none,1,0,0
+2026-11-07,Grandes villes,dijon.fr,1,13,none,1,0,0
+2026-11-07,Grandes villes,angers.fr,1,1,quarantine,1,0,0
+2026-11-07,Grandes villes,nimes.fr,1,4,none,0,0,0
+2026-11-07,Grandes villes,brest.fr,1,4,absent,0,0,0
+2026-11-07,Grandes villes,limoges.fr,1,6,none,1,0,0
+2026-11-07,Grandes villes,tours.fr,1,1,none,1,0,0
+2026-11-07,Universités et écoles,sorbonne-universite.fr,1,5,none,1,0,0
+2026-11-07,Universités et écoles,u-paris.fr,1,3,none,1,0,0
+2026-11-07,Universités et écoles,universite-paris-saclay.fr,1,9,quarantine,1,0,1
+2026-11-07,Universités et écoles,univ-lyon1.fr,1,5,none,1,0,0
+2026-11-07,Universités et écoles,univ-amu.fr,1,0,none,0,0,0
+2026-11-07,Universités et écoles,univ-lille.fr,1,1,none,1,0,0
+2026-11-07,Universités et écoles,univ-nantes.fr,1,8,none,1,0,1
+2026-11-07,Universités et écoles,u-bordeaux.fr,1,4,none,1,0,0
+2026-11-07,Universités et écoles,univ-tlse3.fr,1,6,none,1,0,0
+2026-11-07,Universités et écoles,univ-rennes.fr,1,8,none,1,0,0
+2026-11-07,Universités et écoles,unistra.fr,1,1,none,0,0,0
+2026-11-07,Universités et écoles,umontpellier.fr,1,1,quarantine,1,0,0
+2026-11-07,Universités et écoles,univ-grenoble-alpes.fr,1,4,quarantine,1,0,0
+2026-11-07,Universités et écoles,polytechnique.edu,1,2,none,1,0,0
+2026-11-07,Universités et écoles,centralesupelec.fr,1,7,none,1,0,0
+2026-11-07,Universités et écoles,hec.edu,1,3,quarantine,1,0,0
+2026-11-07,Universités et écoles,essec.edu,1,9,reject,1,0,1
+2026-11-07,Santé et transports,aphp.fr,1,8,reject,1,1,1
+2026-11-07,Santé et transports,chu-toulouse.fr,1,0,none,1,0,0
+2026-11-07,Santé et transports,chu-bordeaux.fr,1,5,quarantine,1,0,0
+2026-11-07,Santé et transports,chu-nantes.fr,1,1,quarantine,1,0,0
+2026-11-07,Santé et transports,chu-lyon.fr,1,1,none,1,0,0
+2026-11-07,Santé et transports,chu-lille.fr,1,9,none,1,0,0
+2026-11-07,Santé et transports,doctolib.fr,1,6,reject,1,1,1
+2026-11-07,Santé et transports,mondocteur.fr,1,1,reject,1,1,0
+2026-11-07,Santé et transports,ratp.fr,1,6,reject,1,0,0
+2026-11-07,Santé et transports,airfrance.fr,1,1,reject,1,0,0
+2026-11-07,Santé et transports,blablacar.fr,1,6,quarantine,1,0,0
+2026-11-07,Santé et transports,ouigo.com,1,5,reject,1,0,0
+2026-11-07,Santé et transports,thalys.com,1,9,reject,1,0,0
+2026-11-07,Santé et transports,flixbus.fr,1,9,none,1,0,0
