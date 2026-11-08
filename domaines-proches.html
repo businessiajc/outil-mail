@@ -216,7 +216,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <p>Un client qui tape <code>exemple.fr</code> avec une lettre en moins, un faux message envoyé depuis <code>exemple-support.fr</code>, une facture « corrigée » depuis <code>exemp1e.fr</code> : ces noms s'enregistrent comme n'importe quel autre. Cet outil fabrique les variantes plausibles de votre nom et interroge le DNS public pour savoir lesquelles sont déjà enregistrées. Il ne visite aucun site.</p>
 <p>Sur <code>candidatia.fr</code>, notre test du 8 novembre 2026 a produit 108 variantes : 2 étaient enregistrées, toutes deux avec un site et un serveur de courrier. Aucune n'a été qualifiée de malveillante. C'est le cas le plus courant, et c'est pour ça que l'outil range les résultats au lieu de crier à la fraude.</p>
 
-<p>Sur 103 grands domaines français, 83 ont au moins une faute de frappe enregistrée qui reçoit du courrier : voir <a href="barometre-domaines-proches.html">le baromètre des domaines proches</a>.</p>
+<p>Sur 103 grands domaines en France, 83 ont au moins une variante de même extension enregistrée sur d'autres serveurs DNS et qui reçoit du courrier : voir <a href="barometre-domaines-proches.html">le baromètre des domaines proches</a>.</p>
 
 <h2 id="tester-un-domaine">Tester un domaine</h2>
 <p>Les requêtes partent de votre navigateur vers dns.google (secours : cloudflare-dns.com). Comptez quelques secondes : 4 secondes mesurées pour 108 variantes. Rien n'est enregistré, ni le domaine saisi, ni les résultats.</p>
@@ -276,7 +276,7 @@ var DP_VOIS={a:'qzs',b:'vgn',c:'xvd',d:'sfe',e:'zrd',f:'dgr',g:'fht',h:'gjy',i:'
 var DP_MOTS=['login','secure','service','client','paiement','support','mon-compte','espace'];
 var DP_TLDS=['com','net','org','fr','eu','io','co','shop','online','site','info','xyz','app','support'];
 function dpNettoyer(s){
-  return String(s).trim().toLowerCase().replace(/^[a-z]+:\/\//,'').replace(/[\/?#:].*$/,'').replace(/\.$/,'').replace(/^www\./,'');
+  return String(s).normalize('NFC').trim().toLowerCase().replace(/^[^@\s]*@/,'').replace(/^[a-z]+:\/\//,'').replace(/[\/?#:].*$/,'').replace(/\.$/,'').replace(/^www\./,'');
 }
 function dpAscii(d){try{return new URL('http://'+d+'/').hostname;}catch(e){return null;}}
 function dpVariantes(dom){
@@ -307,11 +307,11 @@ function dpLire(a,ns,mx,txt,nsRef){
   if(a.Status===3)return {etat:'libre'};
   if(a.Status!==0)return {etat:'erreur'};
   var web=(a.Answer||[]).length>0,nsl=dpNoms(ns,2);
-  if(!web&&!nsl.length)return {etat:'libre'};
-  var mxl=dpNoms(mx,15),nul=mxl.length===1&&/^0 \.?$/.test(mxl[0]);
+  if(!web&&!nsl.length)return (ns&&ns.Status===0)?{etat:'libre'}:{etat:'erreur'};
+  var mxl=dpNoms(mx,15),nul=mxl.length>0&&mxl.every(function(m){return /^\d+ \.?$/.test(m);}),inconnu=!mx||mx.Status!==0&&mx.Status!==3||!txt||txt.Status!==0&&txt.Status!==3;
   var spf=(txt&&txt.Status===0?(txt.Answer||[]):[]).filter(function(t){return t.type===16;}).map(function(t){return String(t.data).replace(/^"|"$/g,'').replace(/"\s*"/g,'');}).filter(function(t){return /^v=spf1(\s|$)/i.test(t);});
   var meme=nsl.some(function(n){return nsRef.indexOf(n)>=0;});
-  var r={etat:'enregistre',web:web,mail:mxl.length>0&&!nul,mxNul:nul,spf:spf.length?spf[0]:'',ns:nsl,meme:meme};
+  var r={etat:'enregistre',inconnu:inconnu,web:web,mail:mxl.length>0&&!nul,mxNul:nul,spf:spf.length?spf[0]:'',ns:nsl,meme:meme};
   r.rang=meme?3:(r.mail?1:2);
   return r;
 }
@@ -338,11 +338,11 @@ if(typeof document!=='undefined'){
   form.addEventListener('submit',function(){
     var d=dpNettoyer(inp.value),asc=dpAscii(d);
     res.innerHTML='';
-    if(!asc||!/^([a-z0-9-]+\.)+[a-z0-9-]+$/.test(asc)||d.indexOf('.')<1){prog.textContent='Domaine invalide. Saisissez par exemple exemple.fr.';return;}
+    if(!asc||!/^([a-z0-9-]+\.)+[a-z0-9-]+$/.test(asc)||d.indexOf('.')<1||/^[0-9.]+$/.test(asc)){prog.textContent='Domaine invalide. Saisissez par exemple exemple.fr.';return;}
     var vs=dpVariantes(d).slice(0,400);
     btn.disabled=true;prog.textContent='Lecture des serveurs DNS de '+d+'...';
     doh(asc,'NS').then(function(nsj){
-      var nsRef=dpNoms(nsj,2),fait=0,trouves=[],erreurs=0,idx=0;
+      var nsRef=dpNoms(nsj,2),sansNs=!nsRef.length,fait=0,trouves=[],erreurs=0,idx=0;
       if(!nsRef.length)prog.textContent='Aucun serveur DNS trouvé pour '+d+' : la comparaison « mêmes serveurs » sera vide.';
       function suivant(){
         if(idx>=vs.length)return Promise.resolve();
@@ -354,7 +354,7 @@ if(typeof document!=='undefined'){
         }).then(suivant);
       }
       var w=[];for(var i=0;i<6;i++)w.push(suivant());
-      return Promise.all(w).then(function(){afficher(d,vs.length,nsRef,trouves,erreurs);});
+      return Promise.all(w).then(function(){afficher(d,vs.length,nsRef,trouves,erreurs);if(sansNs)prog.textContent+=' Attention : aucun serveur DNS lu pour '+d+', la colonne « mêmes serveurs » est vide.';});
     }).then(function(){btn.disabled=false;},function(){btn.disabled=false;prog.textContent='Le DNS public ne répond pas. Réessayez dans un instant.';});
   });
   function afficher(d,n,nsRef,t,erreurs){
@@ -376,8 +376,8 @@ if(typeof document!=='undefined'){
       if(r.etat==='erreur'){l.appendChild(el('td','?'));l.appendChild(el('td','?'));l.appendChild(el('td','?'));l.appendChild(el('td','Réponse DNS en erreur : à revérifier.'));}
       else{
         l.appendChild(el('td',r.web?'oui':'non'));
-        l.appendChild(el('td',r.mxNul?'refusé (MX nul)':(r.mail?'oui':'non')));
-        l.appendChild(el('td',r.spf?(/^v=spf1\s+-all$/i.test(r.spf.trim())?'aucun envoi':'oui'):'non'));
+        l.appendChild(el('td',r.mxNul?'refusé (MX nul)':(r.mail?'oui':(r.inconnu?'?':'non'))));
+        l.appendChild(el('td',r.spf?(/^v=spf1\s+-all$/i.test(r.spf.trim())?'aucun envoi':'oui'):(r.inconnu?'?':'non')));
         l.appendChild(el('td',r.meme?'Mêmes serveurs DNS que vous : probablement à vous, à confirmer.':(r.mail?'À examiner en premier : reçoit du courrier.':'Enregistré par un tiers ou par vous : à identifier.')));
       }
       body.appendChild(l);
@@ -385,10 +385,10 @@ if(typeof document!=='undefined'){
     tb.appendChild(body);box.appendChild(tb);res.appendChild(box);
     var b=el('button','Télécharger en CSV');b.type='button';
     b.addEventListener('click',function(){
-      var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"';};
+      var q=function(s){s=String(s);if(/^[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
       var rows=[['domaine','domaine_dns','variante','etat','resout','courrier','mx_nul','spf','memes_serveurs_dns','serveurs_dns'].join(';')];
-      dernier.forEach(function(r){rows.push([r.x.d,r.x.ascii,r.x.type,r.etat,r.web?1:0,r.mail?1:0,r.mxNul?1:0,r.spf||'',r.meme?1:0,(r.ns||[]).join(' ')].map(q).join(';'));});
-      var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='domaines-proches-'+d+'.csv';document.body.appendChild(a);a.click();a.remove();
+      dernier.forEach(function(r){rows.push([r.x.d,r.x.ascii,r.x.type,r.etat,r.etat==='erreur'?'?':(r.web?1:0),r.etat==='erreur'||r.inconnu?'?':(r.mail?1:0),r.mxNul?1:0,r.spf||'',r.meme?1:0,(r.ns||[]).join(' ')].map(q).join(';'));});
+      var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='domaines-proches-'+d+'.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
     });
     res.appendChild(b);
     res.appendChild(el('p','Ces domaines sont affichés en texte, sans lien : ne les ouvrez pas depuis un poste qui contient des données sensibles.'));
