@@ -1,0 +1,6 @@
+date,secteur,domaines,variantes_testees,variantes_enregistrees,part_enregistrees_pct,mediane_enregistrees_par_domaine,domaines_avec_faute_meme_extension_recevant_courrier_autres_serveurs,part_pct,proches_memes_serveurs_dns_pct,proches_spf_aucun_envoi_pct,proches_mx_nul_pct,reponses_dns_en_erreur
+2026-11-08,"Banques, assurances, mutuelles",23,2122,518,24.4,20,20,87.0,28.8,38.2,22.0,91
+2026-11-08,E-commerce et vente en ligne,29,2455,696,28.4,19,24,82.8,7.8,26.9,14.5,84
+2026-11-08,Grandes villes,20,1562,310,19.8,14.0,18,90.0,3.9,26.8,12.6,31
+2026-11-08,Santé et transports,14,1239,220,17.8,16.5,11,78.6,16.8,25.0,6.4,23
+2026-11-08,Universités et écoles,17,1907,111,5.8,7,10,58.8,29.7,9.0,7.2,46
