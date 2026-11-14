@@ -15,7 +15,7 @@
 <meta property="og:description" content="Build a DMARC TXT record in your browser, with warnings for the pitfalls: pct, external report addresses, reject too early. Based on RFC 9989. Nothing is sent anywhere.">
 <meta property="og:url" content="https://businessiajc.github.io/outil-mail/en-dmarc-record-generator.html">
 <meta name="twitter:card" content="summary">
-<link rel="alternate" hreflang="en" href="https://businessiajc.github.io/outil-mail/en-dmarc-record-generator.html"><link rel="alternate" hreflang="fr" href="https://businessiajc.github.io/outil-mail/generateur-dmarc.html"><link rel="alternate" hreflang="x-default" href="https://businessiajc.github.io/outil-mail/generateur-dmarc.html"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DMARC record generator","description":"Build a DMARC TXT record in your browser, with warnings for the pitfalls: pct, external report addresses, reject too early. Based on RFC 9989. Nothing is sent anywhere.","inLanguage":"en","dateModified":"2026-11-07","author":{"@type":"Person","name":"Jarod Capella"},"mainEntityOfPage":"https://businessiajc.github.io/outil-mail/en-dmarc-record-generator.html"}</script>
+<link rel="alternate" hreflang="en" href="https://businessiajc.github.io/outil-mail/en-dmarc-record-generator.html"><link rel="alternate" hreflang="fr" href="https://businessiajc.github.io/outil-mail/generateur-dmarc.html"><link rel="alternate" hreflang="x-default" href="https://businessiajc.github.io/outil-mail/generateur-dmarc.html"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DMARC record generator","description":"Build a DMARC TXT record in your browser, with warnings for the pitfalls: pct, external report addresses, reject too early. Based on RFC 9989. Nothing is sent anywhere.","inLanguage":"en","dateModified":"2026-11-14","author":{"@type":"Person","name":"Jarod Capella"},"mainEntityOfPage":"https://businessiajc.github.io/outil-mail/en-dmarc-record-generator.html"}</script>
 <style>
 /* Système de design commun — éditorial, sobre, lisible. Une seule couleur d'accent. */
 :root{
@@ -46,15 +46,17 @@ a:hover{text-decoration-thickness:2px}
 /* En-tête */
 .top{background:var(--surface);border-bottom:1px solid var(--line);border-top:4px solid var(--ac);position:sticky;top:0;z-index:5}
 .top .wrap{display:flex;align-items:center;gap:20px;min-height:58px;padding-top:6px;padding-bottom:6px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-decoration:none;font-size:1.02rem}
+.brand{flex:none;white-space:nowrap;display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-decoration:none;font-size:1.02rem}
 .brand svg{flex:none}
 .brand small{font-weight:500;color:var(--mut);margin-left:2px}
-.nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;align-items:center;min-width:0}
+.dd{position:relative}.dd>button{font:inherit;font-size:.93rem;font-weight:500;color:var(--ink-2);background:none;border:0;border-radius:7px;padding:7px 11px;cursor:pointer;white-space:nowrap}.dd>button::after{content:"";display:inline-block;margin-left:7px;width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg)}.dd>button:hover,.dd.open>button{background:var(--surface-2);color:var(--ink)}.dd>button[aria-current]{background:var(--ac-soft);color:var(--ac)}
+.menu{display:none;position:absolute;top:100%;left:0;min-width:250px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:6px;z-index:20;flex-direction:column;gap:1px}.dd.open>.menu{display:flex}@media(hover:hover){.dd:hover>.menu{display:flex}}.menu a{display:block;padding:8px 12px}
 .nav a{white-space:nowrap;color:var(--ink-2);text-decoration:none;padding:7px 11px;border-radius:7px;font-size:.93rem;font-weight:500}
 .nav a:hover{background:var(--surface-2);color:var(--ink)}
 .nav a[aria-current=page]{background:var(--ac-soft);color:var(--ac)}
-@media(max-width:1020px){.top .wrap{flex-wrap:wrap;gap:2px 20px;padding-top:10px;padding-bottom:8px}.nav{margin-left:0;width:100%}}
-@media(max-width:720px){.top .wrap{gap:4px}.brand small{display:none}.nav{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}.nav::-webkit-scrollbar{display:none}.nav a{flex:none}}
+@media(max-width:1020px){.top .wrap{flex-wrap:wrap;gap:2px 20px;padding-top:10px;padding-bottom:8px}.nav{margin-left:0;width:100%}.menu{min-width:230px}}
+@media(max-width:720px){.top .wrap{gap:4px}.brand small{display:none}.nav{padding-bottom:2px}.dd{position:static}.menu{position:absolute;left:16px;right:16px;min-width:0}}
 
 /* Bandeau d'accueil */
 .hero{padding:56px 0 44px;border-bottom:1px solid var(--line);background:var(--hero);position:relative}
@@ -212,7 +214,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <body>
 <a class="skip" href="#contenu">Skip to content</a>
 <header class="top"><div class="wrap"><a class="brand" href="en-dmarc-record-generator.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>Free SPF, DKIM and DMARC tools</small></a><nav class="nav" aria-label="Language"><a href="generateur-dmarc.html" hreflang="fr" lang="fr">Français</a></nav></div></header>
-<main id="contenu" class="page"><div class="wrap"><div class="layout" style="display:block"><article class="prose"><h1>DMARC record generator</h1><p class="byline">By Jarod Capella · Updated November 7, 2026 · 2 min read</p>
+<main id="contenu" class="page"><div class="wrap"><div class="layout" style="display:block"><article class="prose"><h1>DMARC record generator</h1><p class="byline">By Jarod Capella · Updated November 14, 2026 · 2 min read</p>
 <p>Fill in the fields, copy the result, paste it into a TXT record in your DNS zone. Nothing is sent: the calculation runs in your browser.</p>
 <form id="f" onsubmit="return false">
 <p><label>Domain (e.g. example.com) <input id="dom" type="text" value="example.com" autocomplete="off"></label></p>
@@ -241,7 +243,7 @@ a.tag:hover{filter:brightness(.95);text-decoration:none}
 <h2>Before you publish</h2>
 <p>Start with <code>p=none</code> and a <code>rua</code> address, read the reports for a few weeks, then tighten the policy. If the report address is on a domain other than yours, the receiving domain must publish an authorisation record, otherwise receivers ignore the address (RFC 7489, section 7.1).</p>
 <p>Caveat: RFC 7489 was declared obsolete and replaced by RFC 9989, 9990 and 9991. Both texts were read in plain-text form on rfc-editor.org on 2026-11-05 (RFC 7489 section 6.3, RFC 9989 sections 4.7, 4.10.1 and appendix A.6). RFC 9989 changes other points than the ones described here: read it before any sensitive deployment.</p></article></div></div></main>
-<footer class="foot"><div class="wrap"><div class="g"><div><h4>Contrôle e-mail</h4><p>Free tools and guides to secure the email of a small business: SPF, DKIM, DMARC. The French site has more tools.</p><p>Published by Jarod Capella, France.</p></div><div><h4>Sources</h4><ul><li><a href="https://www.rfc-editor.org/rfc/rfc9989" rel="noopener">RFC 9989 (DMARC)</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc7208" rel="noopener">RFC 7208 (SPF)</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc6376" rel="noopener">RFC 6376 (DKIM)</a></li></ul></div></div><div class="legal"><p>General information, not a security audit or professional advice. No cookies, no data stored: everything runs in your browser. <a href="mentions.html">Legal notice (French)</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Updated November 7, 2026.</p></div></div></footer>
+<footer class="foot"><div class="wrap"><div class="g"><div><h4>Contrôle e-mail</h4><p>Free tools and guides to secure the email of a small business: SPF, DKIM, DMARC. The French site has more tools.</p><p>Published by Jarod Capella, France.</p></div><div><h4>Sources</h4><ul><li><a href="https://www.rfc-editor.org/rfc/rfc9989" rel="noopener">RFC 9989 (DMARC)</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc7208" rel="noopener">RFC 7208 (SPF)</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc6376" rel="noopener">RFC 6376 (DKIM)</a></li></ul></div></div><div class="legal"><p>General information, not a security audit or professional advice. No cookies, no data stored: everything runs in your browser. <a href="mentions.html">Legal notice (French)</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Updated November 14, 2026.</p></div></div></footer>
 <script>
 (function(){
 var $=function(i){return document.getElementById(i)};
