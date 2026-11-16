@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vérifier un lien Booking ou Airbnb : vrai ou faux ? — Contrôle e-mail</title>
+<meta name="description" content="Collez un lien ou une adresse d&#x27;expéditeur : l&#x27;outil dit s&#x27;il mène vraiment à Booking ou Airbnb, d&#x27;après leurs pages officielles.">
+<link rel="canonical" href="https://businessiajc.github.io/outil-mail/verifier-lien-reservation.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='64' height='64' rx='7' fill='%230b5d56'/%3E%3Cpath d='M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3Cpath d='m7 10 7 5.2L21 10' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='21.5' cy='8' r='3.6' fill='%23fff'/%3E%3Cpath d='m19.8 8 1.2 1.2 2-2.2' fill='none' stroke='%230b5d56' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b5d56">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Contrôle e-mail">
+<meta property="og:title" content="Vérifier un lien Booking ou Airbnb : vrai ou faux ?">
+<meta property="og:description" content="Collez un lien ou une adresse d&#x27;expéditeur : l&#x27;outil dit s&#x27;il mène vraiment à Booking ou Airbnb, d&#x27;après leurs pages officielles.">
+<meta property="og:url" content="https://businessiajc.github.io/outil-mail/verifier-lien-reservation.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Lien Booking ou Airbnb : vrai ou faux ?","description":"Collez un lien ou une adresse d'expéditeur : l'outil dit s'il mène vraiment à Booking ou Airbnb, d'après leurs pages officielles.","inLanguage":"fr","dateModified":"2026-11-16","author":{"@type":"Person","name":"Jarod Capella"},"mainEntityOfPage":"https://businessiajc.github.io/outil-mail/verifier-lien-reservation.html"}</script>
+<style>
+/* Système de design commun — éditorial, sobre, lisible. Une seule couleur d'accent. */
+:root{
+  --bg:#f8f8f5;--surface:#fff;--surface-2:#f1f2ee;--ink:#14202b;--ink-2:#3b4852;--mut:#66727c;--line:#dde1e3;--line-2:#c9cfd3;
+  --ac:#0b5d56;--ac-ink:#fff;--ac-soft:#e3f0ee;--c2:#2552c7;--c2-soft:#e6ecfb;--c3:#b4580b;--c3-soft:#fbeadb;--c4:#7a2f8f;--c4-soft:#f3e7f7;--hero:#dcefe9;--band:#eef3f1;
+  --ok:#17744a;--ok-bg:#e6f3ec;--warn:#8f5b00;--warn-bg:#fbf0db;--ko:#b0271c;--ko-bg:#fbe7e4;
+  --shadow:0 1px 2px rgba(20,32,43,.06),0 8px 24px -12px rgba(20,32,43,.14);
+  --serif:"Iowan Old Style","Palatino Linotype",Charter,"Book Antiqua",Georgia,serif;
+  --sans:Inter,"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,"Liberation Mono",monospace;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0e1418;--surface:#141c22;--surface-2:#1a242b;--ink:#e8edf0;--ink-2:#c3ccd2;--mut:#93a0a9;--line:#26333c;--line-2:#34444f;
+  --ac:#5cc1b4;--ac-ink:#08201d;--ac-soft:#16302d;--c2:#8aa8ff;--c2-soft:#1a2440;--c3:#f0a35c;--c3-soft:#33230f;--c4:#d39be6;--c4-soft:#2b1a33;--hero:#10302f;--band:#121d22;
+  --ok:#5ccb92;--ok-bg:#12281d;--warn:#e7b04c;--warn-bg:#2b2210;--ko:#ff8a7e;--ko-bg:#2f1714;
+  --shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{overflow-wrap:anywhere;color:var(--ac);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ac);color:var(--ac-ink);padding:8px 12px;border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+
+/* En-tête */
+.top{background:var(--surface);border-bottom:1px solid var(--line);border-top:4px solid var(--ac);position:sticky;top:0;z-index:5}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:58px;padding-top:6px;padding-bottom:6px}
+.brand{flex:none;white-space:nowrap;display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-decoration:none;font-size:1.02rem}
+.brand svg{flex:none}
+.brand small{font-weight:500;color:var(--mut);margin-left:2px}
+.nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;align-items:center;min-width:0}
+.dd{position:relative}.dd>button{font:inherit;font-size:.93rem;font-weight:500;color:var(--ink-2);background:none;border:0;border-radius:7px;padding:7px 11px;cursor:pointer;white-space:nowrap}.dd>button::after{content:"";display:inline-block;margin-left:7px;width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg)}.dd>button:hover,.dd.open>button{background:var(--surface-2);color:var(--ink)}.dd>button[aria-current]{background:var(--ac-soft);color:var(--ac)}
+.menu{display:none;position:absolute;top:100%;left:0;min-width:250px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:6px;z-index:20;flex-direction:column;gap:1px}.dd.open>.menu{display:flex}@media(hover:hover){.dd:hover>.menu{display:flex}}.menu a{display:block;padding:8px 12px}
+.nav a{white-space:nowrap;color:var(--ink-2);text-decoration:none;padding:7px 11px;border-radius:7px;font-size:.93rem;font-weight:500}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.nav a[aria-current=page]{background:var(--ac-soft);color:var(--ac)}
+@media(max-width:1020px){.top .wrap{flex-wrap:wrap;gap:2px 20px;padding-top:10px;padding-bottom:8px}.nav{margin-left:0;width:100%}.menu{min-width:230px}}
+@media(max-width:720px){.top .wrap{gap:4px}.brand small{display:none}.nav{padding-bottom:2px}.dd{position:static}.menu{position:absolute;left:16px;right:16px;min-width:0}}
+
+/* Bandeau d'accueil */
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line);background:var(--hero);position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:4px;background:linear-gradient(90deg,var(--ac) 0 34%,var(--c2) 34% 67%,var(--c3) 67% 100%)}
+.hero .wrap{max-width:860px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font:600 .78rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
+.kicker::before{content:"";width:22px;height:2px;background:var(--ac)}
+.hero h1{font:700 clamp(1.9rem,4.4vw,2.9rem)/1.12 var(--serif);letter-spacing:-.02em;margin:14px 0 14px;max-width:18em}
+.hero p.lead{font-size:1.1rem;color:var(--ink-2);max-width:42em;margin:0 0 26px}
+.meta-line{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--mut);font-size:.86rem;margin-top:18px}
+.meta-line span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:8px;vertical-align:middle}
+
+/* Champ de saisie */
+.search{display:flex;gap:0;background:var(--surface);border:1.5px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;max-width:640px}
+.search:focus-within{border-color:var(--ac);box-shadow:0 0 0 4px var(--ac-soft)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 1.08rem/1 var(--sans);padding:18px 18px;outline:0}
+.search input::placeholder{color:var(--mut);font-weight:400}
+.btn{border:0;background:var(--ac);color:var(--ac-ink);font:600 .98rem var(--sans);padding:0 26px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ac);border:1px solid var(--line-2);border-radius:8px;padding:8px 14px;font-size:.85rem}
+.btn.ghost:hover{background:var(--ac-soft);filter:none}
+a.btn{display:inline-block;padding:12px 22px;border-radius:8px;text-decoration:none;white-space:normal}
+.try{margin-top:12px;color:var(--mut);font-size:.88rem}
+.try button{background:none;border:0;color:var(--ac);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0 2px}
+
+/* Résultats */
+#resultat{padding:0}
+.rhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin:36px 0 18px}
+.rhead h2{font:700 1.5rem/1.2 var(--serif);margin:0}
+.rhead h2 span{font-family:var(--mono);font-weight:600;font-size:.9em;background:var(--surface-2);padding:2px 8px;border-radius:6px}
+.score{display:flex;align-items:center;gap:14px}
+.score b{font:700 1.05rem var(--sans)}
+.bar{display:flex;gap:5px}.bar i{display:block;width:38px;height:8px;border-radius:4px;background:var(--line-2)}
+.bar i.ok{background:var(--ok)}.bar i.warn{background:var(--warn)}.bar i.ko{background:var(--ko)}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:760px){.checks{grid-template-columns:1fr}}
+.check{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--line-2);border-radius:10px;padding:18px 20px}
+.check.ok{border-left-color:var(--ok)}.check.warn{border-left-color:var(--warn)}.check.ko{border-left-color:var(--ko)}
+.check header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.check h3{margin:0;font:700 1.02rem var(--sans);letter-spacing:-.005em}
+.check h3 small{display:block;color:var(--mut);font-weight:500;font-size:.8rem;margin-top:1px}
+.chip{font:700 .72rem/1 var(--sans);letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}.chip.warn{background:var(--warn-bg);color:var(--warn)}.chip.ko{background:var(--ko-bg);color:var(--ko)}
+.check p{margin:6px 0;color:var(--ink-2);font-size:.95rem}
+.rec{position:relative;margin-top:10px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 74px 10px 12px;font:.8rem/1.5 var(--mono);color:var(--ink);word-break:break-all;white-space:pre-wrap}
+.rec button{position:absolute;top:7px;right:7px;font:600 .72rem var(--sans);border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);border-radius:6px;padding:4px 9px;cursor:pointer}
+.rec button:hover{color:var(--ac);border-color:var(--ac)}
+.fix{margin-top:10px;font-size:.9rem;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:9px}
+.fix b{color:var(--ink)}
+.loading{display:flex;align-items:center;gap:12px;color:var(--mut);padding:28px 0}
+.spin{width:18px;height:18px;border:2.5px solid var(--line-2);border-top-color:var(--ac);border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+
+/* Sections */
+section.s{padding:56px 0;border-bottom:1px solid var(--line)}
+section.s.alt{background:var(--band)}
+.s h2::before{content:"";display:block;width:44px;height:4px;border-radius:2px;background:var(--ac);margin-bottom:12px}
+.s h2{font:700 clamp(1.45rem,3vw,1.9rem)/1.2 var(--serif);letter-spacing:-.015em;margin:0 0 8px}
+.s .sub{color:var(--ink-2);max-width:44em;margin:0 0 28px}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.cols3>div{padding:24px;border-right:1px solid var(--line)}.cols3>div:last-child{border-right:0}
+@media(max-width:820px){.cols3{grid-template-columns:1fr}.cols3>div{border-right:0;border-bottom:1px solid var(--line)}.cols3>div:last-child{border-bottom:0}}
+.cols3 h3{margin:0 0 4px;font:700 1.1rem var(--sans)}.cols3 h3 span{font:600 .75rem var(--mono);color:var(--ac);display:block;letter-spacing:.04em;margin-bottom:6px}
+.cols3 p{margin:0;color:var(--ink-2);font-size:.95rem}
+.gen{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:820px){.gen{grid-template-columns:1fr}}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:22px}
+.s.alt .panel{background:var(--bg)}
+.panel h3{margin:0 0 2px;font:700 1.05rem var(--sans)}.panel .sub2{color:var(--mut);font-size:.85rem;margin:0 0 14px}
+.panel label{display:block;font-size:.9rem;margin:8px 0}
+.panel label.chk{display:flex;gap:9px;align-items:center}
+.panel input[type=text],.panel select{width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.panel input[type=checkbox]{accent-color:var(--ac);width:17px;height:17px}
+.guides{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.guides{grid-template-columns:1fr}}
+.guide{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+.guide:hover{border-color:var(--ac);transform:translateY(-2px)}
+.guide span{font:600 .74rem var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ac)}
+.guide h3{margin:6px 0 6px;font:700 1.08rem/1.3 var(--serif)}.guide p{margin:0;color:var(--ink-2);font-size:.92rem}
+.method{max-width:760px;color:var(--ink-2)}.method h3{font:700 1rem var(--sans);color:var(--ink);margin:22px 0 4px}.method p{margin:0 0 6px}
+
+/* Pages article */
+.page{padding:36px 0 72px}
+.crumbs{font-size:.85rem;color:var(--mut);margin-bottom:18px}.crumbs a{color:var(--mut)}.crumbs a:hover{color:var(--ac)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:56px;align-items:start}
+@media(max-width:940px){.layout{grid-template-columns:minmax(0,1fr)}.aside{order:-1}}
+.prose{max-width:720px}
+.prose h1{font:700 clamp(1.8rem,4vw,2.5rem)/1.15 var(--serif);letter-spacing:-.02em;margin:0 0 12px}
+.prose .byline{color:var(--mut);font-size:.86rem;margin:0 0 26px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.prose h2{font:700 1.45rem/1.25 var(--serif);letter-spacing:-.01em;margin:2.2em 0 .5em;scroll-margin-top:80px}
+.prose h3{font:700 1.08rem var(--sans);margin:1.6em 0 .3em;scroll-margin-top:80px}
+.prose p,.prose li{color:var(--ink-2)}.prose strong{color:var(--ink)}
+.prose ul,.prose ol{padding-left:1.25em}.prose li{margin:.3em 0}
+.prose code{font:.86em var(--mono);background:var(--surface-2);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--ink);word-break:break-word}
+.prose pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}.prose pre code{background:none;border:0;padding:0}
+.prose table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.93rem;display:block;overflow-x:auto}
+.prose th{background:var(--surface-2);text-align:left;font-weight:700;white-space:nowrap}
+.prose th,.prose td{border-bottom:1px solid var(--line);padding:9px 12px;vertical-align:top}
+.prose tr:hover td{background:color-mix(in srgb,var(--surface-2) 55%,transparent)}
+.box,.item,.res{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:10px;padding:14px 18px;margin:1.3em 0}
+.box>:first-child,.res>:first-child,.item>:first-child{margin-top:0}.box>:last-child,.res>:last-child,.item>:last-child{margin-bottom:0}
+.mut{color:var(--mut);font-size:.9rem}
+.prose label{display:block;margin:16px 0 5px;font-weight:600;font-size:.92rem;color:var(--ink)}
+.prose input,.prose select{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:9px;font:inherit;background:var(--surface);color:var(--ink)}
+.prose input:focus,.prose select:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.aside{position:sticky;top:78px;font-size:.9rem}
+.aside .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.aside h4{margin:0 0 8px;font:700 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.aside ul{list-style:none;margin:0;padding:0}.aside li{margin:0}
+.aside li a{display:block;padding:5px 0;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;padding-left:10px;margin-left:-10px}
+.aside li a:hover,.aside li a.on{color:var(--ac);border-left-color:var(--ac)}
+.related a{display:block;padding:6px 0;color:var(--ink-2);text-decoration:none}.related a:hover{color:var(--ac)}
+@media print{.top,.aside,.foot,.skip{display:none}.layout{display:block}body{background:#fff;color:#000}.prose{max-width:none}}
+
+/* Pied de page */
+.foot{background:var(--surface);border-top:1px solid var(--line);padding:36px 0 44px;color:var(--mut);font-size:.88rem}
+.foot .g{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+@media(max-width:760px){.foot .g{grid-template-columns:1fr;gap:20px}}
+.foot h4{margin:0 0 8px;font:700 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.foot a{color:var(--ink-2)}.foot p{margin:0 0 6px}.foot ul{list-style:none;padding:0;margin:0}.foot li{margin:4px 0}
+.foot .legal{margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+
+/* Couleurs par rubrique */
+.cols3>div{border-top:4px solid var(--ac)}.cols3>div.c2{border-top-color:var(--c2)}.cols3>div.c3{border-top-color:var(--c3)}
+.cols3>div.c1 h3 span{color:var(--ac)}.cols3>div.c2 h3 span{color:var(--c2)}.cols3>div.c3 h3 span{color:var(--c3)}
+.cols3>div.c1{background:var(--ac-soft)}.cols3>div.c2{background:var(--c2-soft)}.cols3>div.c3{background:var(--c3-soft)}
+.guide{border-top:4px solid var(--ac)}.guide.k-guide{border-top-color:var(--c2)}.guide.k-guide span{color:var(--c2)}
+.guide.k-calc{border-top-color:var(--c3)}.guide.k-calc span{color:var(--c3)}
+.guide:hover{border-color:var(--line-2);box-shadow:var(--shadow)}
+.guide.k-guide:hover{border-top-color:var(--c2)}.guide.k-calc:hover{border-top-color:var(--c3)}
+.kicker{color:var(--ac)}.btn{background:var(--ac)}
+.meta-line span:nth-child(2)::before{background:var(--c2)}.meta-line span:nth-child(3)::before{background:var(--c3)}
+.panel{border-top:4px solid var(--c2)}.gen .panel:nth-child(2){border-top-color:var(--c4)}
+.prose h2{border-left:4px solid var(--ac);padding-left:12px}
+.prose h2:nth-of-type(3n+2){border-left-color:var(--c2)}.prose h2:nth-of-type(3n+3){border-left-color:var(--c3)}
+.prose th{background:var(--ac-soft);color:var(--ink)}
+.aside .card:first-child{border-top:4px solid var(--c2)}.aside .card.related{border-top:4px solid var(--c3)}
+.foot{border-top:4px solid var(--ac)}
+
+/* Niveaux d'études */
+.levels{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.tag{display:inline-block;font:700 .72rem/1 var(--sans);letter-spacing:.03em;padding:6px 10px;border-radius:999px;text-decoration:none;background:var(--ac-soft);color:var(--ac)}
+.tag.t2{background:var(--ac-soft);color:var(--ac)}.tag.t3{background:var(--c2-soft);color:var(--c2)}.tag.t5{background:var(--c3-soft);color:var(--c3)}
+a.tag:hover{filter:brightness(.95);text-decoration:none}
+.levnote{margin:2px 0 22px;font-size:.82rem}
+
+/* Jauge (requêtes DNS SPF) */
+.gauge{display:flex;gap:3px;margin:10px 0 4px}
+.gauge i{flex:1;height:10px;border-radius:3px;background:var(--line-2);transition:background .3s}
+.gauge i.on{background:var(--ok)}.gauge.warn i.on{background:var(--warn)}.gauge.ko i.on{background:var(--ko)}
+.gaugelab{font:600 .8rem var(--sans);color:var(--mut);margin:0 0 6px}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#0b5d56"/><path d="M6.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="m7 10 7 5.2L21 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21.5" cy="8" r="3.6" fill="#fff"/><path d="m19.8 8 1.2 1.2 2-2.2" fill="none" stroke="#0b5d56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contrôle e-mail</span><small>par Jarod Capella</small></a><nav class="nav" aria-label="Navigation principale"><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Vérifier</button><div class="menu"><a href="index.html">Vérificateur</a><a href="analyseur-entetes.html">Analyseur d&#x27;en-têtes</a><a href="analyseur-rapport-dmarc.html">Analyseur de rapport</a><a href="generateur-dmarc.html">Générateur DMARC</a><a href="budget-spf.html">Budget SPF</a><a href="alignement-dmarc.html">Alignement DMARC</a><a href="script-audit.html">Script d&#x27;audit</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Guides</button><div class="menu"><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="franchise-tva.html">Franchise de TVA</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Autres</button><div class="menu"><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="barometre.html">Baromètre</a></div></div><div class="dd"><button type="button" aria-expanded="false" aria-haspopup="true">Autres</button><div class="menu"><a href="verifier-lien-reservation.html" aria-current="page">Lien Booking ou Airbnb</a></div></div></nav></div><script>(function(){var d=document;function close(e){d.querySelectorAll('.dd.open').forEach(function(x){if(!e||!x.contains(e.target)){x.classList.remove('open');x.firstElementChild.setAttribute('aria-expanded','false')}})}
+d.addEventListener('click',function(e){var b=e.target.closest('.dd>button');if(b){var p=b.parentNode,o=p.classList.contains('open');close();if(!o){p.classList.add('open');b.setAttribute('aria-expanded','true')}e.preventDefault();return}close(e)});
+d.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();</script></header>
+<main id="contenu" class="page"><div class="wrap"><div class="crumbs"><a href="index.html">Contrôle e-mail</a> / Lien Booking ou Airbnb : vrai ou faux ?</div><div class="layout"><article class="prose"><h1>Lien Booking ou Airbnb : vrai ou faux ?</h1><p class="byline">Par Jarod Capella · Mis à jour le 16 novembre 2026 · 3 min de lecture</p>
+<p>Un client reçoit « votre réservation sera annulée sous 24 h, confirmez votre carte ». Le message cite ses dates et son prix. Il arrive parfois par WhatsApp, parfois par e-mail. Avant de cliquer, collez le lien (ou l'adresse de l'expéditeur) ci-dessous : l'outil dit où il mène vraiment, en le comparant aux adresses publiées par Booking et Airbnb.</p>
+<p class="mut">Rien n'est envoyé : l'analyse se fait dans votre navigateur, le lien n'est jamais ouvert.</p>
+
+<form id="f" class="search" autocomplete="off" onsubmit="return false">
+<input id="q" type="text" placeholder="Collez le lien ou l'adresse e-mail de l'expéditeur" aria-label="Lien ou adresse e-mail à vérifier">
+<button class="btn" id="go" type="submit">Vérifier</button>
+</form>
+<p class="mut">Pour copier un lien sans l'ouvrir : appui long sur le lien (téléphone) ou clic droit puis « Copier l'adresse du lien » (ordinateur).</p>
+<div id="out" class="checks" aria-live="polite"></div>
+
+<h2 id="ce-que-booking-et-airbnb-ecrivent-eux-memes">Ce que Booking et Airbnb écrivent eux-mêmes</h2>
+<p>Pages lues le 16/11/2026. Ce sont les règles des plateformes, pas les nôtres.</p>
+<ul>
+<li><strong>Booking</strong> ne demande jamais de numéro de carte par e-mail, téléphone, SMS ou WhatsApp, ni un virement différent des conditions de paiement de la confirmation de réservation. Aucune transaction légitime ne se paie en cartes cadeaux. Les messages frauduleux prétendent le plus souvent venir de l'hébergement et citent les dates et le prix du séjour. <a href="https://www.booking.com/trust_and_safety/travellers.html" rel="nofollow">booking.com, Safety tips for travelers</a></li>
+<li><strong>Airbnb</strong> : un vrai lien commence par airbnb.com ou par une adresse pays (exemples cités : airbnb.es, airbnb.it, airbnb.at, airbnb.co.uk). Les e-mails authentiques viennent uniquement d'une liste fermée de 15 domaines et adresses, reprise dans l'outil. Un nom mal orthographié dans l'adresse signifie un faux site. <a href="https://www.airbnb.com/help/article/971" rel="nofollow">airbnb.com, article d'aide 971</a></li>
+</ul>
+<p>Booking ne publie pas, sur cette page, la liste de ses adresses d'envoi. Pour un e-mail qui affiche une adresse en @booking.com, l'outil ne peut donc pas conclure : ouvrez la réservation dans l'application et comparez.</p>
+
+<h2 id="hoteliers-le-message-a-envoyer-a-vos-clients">Hôteliers : le message à envoyer à vos clients</h2>
+<p>Le faux message est signé du nom de votre établissement. Une phrase dans votre e-mail de confirmation ou votre message d'accueil donne au client un repère simple pour le reconnaître. À copier, en français et en anglais :</p>
+<pre id="m1">Nous ne vous demanderons jamais votre numéro de carte, ni un paiement par lien, par WhatsApp, par SMS ou par e-mail. Les seuls paiements sont ceux indiqués dans votre confirmation de réservation. Si vous recevez une telle demande à notre nom, ne cliquez pas et appelez-nous au numéro de notre site.</pre>
+<p><button class="btn ghost" type="button" data-copy="m1">Copier le texte français</button></p>
+<pre id="m2">We will never ask for your card number, or for a payment through a link, WhatsApp, text message or e-mail. The only payments are those shown in your booking confirmation. If you receive such a request in our name, do not click and call us on the number shown on our website.</pre>
+<p><button class="btn ghost" type="button" data-copy="m2">Copier le texte anglais</button></p>
+<p>Avant de l'envoyer, vérifiez que la phrase correspond à vos conditions réelles : si vous encaissez des acomptes par lien de paiement, adaptez-la.</p>
+<p>Le second front, c'est votre propre nom de domaine. Un faux e-mail signé de votre adresse peut partir sans que rien ne demande aux messageries de le rejeter : sur 868 hébergements classés mesurés le 16/11/2026, 102 seulement l'avaient réglé (<a href="barometre-hotellerie.html">baromètre de l'hôtellerie</a>). Testez le vôtre avec le <a href="index.html">vérificateur de domaine</a>.</p>
+
+<h2 id="limites">Limites</h2>
+<ul>
+<li>L'outil lit l'adresse, il ne visite pas la page. Un lien vers booking.com ou airbnb.com peut toujours mener à une annonce frauduleuse publiée sur la plateforme : l'outil ne juge que l'adresse.</li>
+<li>L'adresse affichée d'un expéditeur peut être imitée. Une adresse conforme à la liste d'Airbnb n'est pas une preuve à elle seule : en cas de doute, ouvrez l'application vous-même, sans passer par le message.</li>
+<li>Les listes de domaines changent. Celles-ci datent du 16/11/2026.</li>
+</ul></article><aside class="aside"><div class="card"><h4>Dans cette page</h4><ul class="toc"><li><a href="#ce-que-booking-et-airbnb-ecrivent-eux-memes">Ce que Booking et Airbnb écrivent eux-mêmes</a></li><li><a href="#hoteliers-le-message-a-envoyer-a-vos-clients">Hôteliers : le message à envoyer à vos clients</a></li><li><a href="#limites">Limites</a></li></ul></div><div class="card related"><h4>À lire aussi</h4><a href="erreurs.html">Erreurs courantes</a><a href="spf-google-microsoft.html">SPF Google et Microsoft</a><a href="cotisations-micro.html">Calculateur micro-entreprise</a><a href="franchise-tva.html">Franchise de TVA</a><a href="generateur-dmarc.html">Générateur DMARC</a><a href="budget-spf.html">Budget SPF</a><a href="script-audit.html">Script d&#x27;audit</a><a href="barometre.html">Baromètre</a><a href="analyseur-rapport-dmarc.html">Analyseur de rapport</a><a href="analyseur-entetes.html">Analyseur d&#x27;en-têtes</a><a href="alignement-dmarc.html">Alignement DMARC</a><a href="index.html">← Retour à l’accueil</a></div></aside></div></div></main>
+<footer class="foot"><div class="wrap"><div class="g">
+<div><h4>Contrôle e-mail</h4><p>Outils gratuits et guides en français pour sécuriser l&#x27;envoi d&#x27;e-mails d&#x27;une petite entreprise : SPF, DKIM, DMARC.</p><p>Édité par Jarod Capella, Foix (09), France.</p></div>
+<div><h4>Pages</h4><ul><li><a href="index.html">Vérificateur</a></li><li><a href="erreurs.html">Erreurs courantes</a></li><li><a href="spf-google-microsoft.html">SPF Google et Microsoft</a></li><li><a href="cotisations-micro.html">Calculateur micro-entreprise</a></li><li><a href="franchise-tva.html">Franchise de TVA</a></li><li><a href="generateur-dmarc.html">Générateur DMARC</a></li><li><a href="budget-spf.html">Budget SPF</a></li><li><a href="script-audit.html">Script d&#x27;audit</a></li><li><a href="barometre.html">Baromètre</a></li><li><a href="analyseur-rapport-dmarc.html">Analyseur de rapport</a></li><li><a href="analyseur-entetes.html">Analyseur d&#x27;en-têtes</a></li><li><a href="alignement-dmarc.html">Alignement DMARC</a></li><li><a href="verifier-lien-reservation.html">Lien Booking ou Airbnb</a></li></ul></div>
+<div><h4>Méthode et sources</h4><ul><li><a href="https://www.rfc-editor.org/rfc/rfc7208" rel="noopener">RFC 7208 — SPF</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc6376" rel="noopener">RFC 6376 — DKIM</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc9989" rel="noopener">RFC 9989 — DMARC</a></li></ul><p style="margin-top:8px">Lecture des enregistrements DNS publics via dns.google, puis cloudflare-dns.com en secours.</p><h4 style="margin-top:14px">Du même éditeur</h4><ul><li><a href="https://businessiajc.github.io/outils-tpe/">Outils TPE</a></li><li><a href="https://businessiajc.github.io/outils-tpe/prix-marge.html">Prix de vente et marge</a></li><li><a href="https://businessiajc.github.io/outils-tpe/net-micro.html">Net d&#x27;un CA en micro</a></li><li><a href="https://businessiajc.github.io/fiches-it/">Fiches réseau &amp; cyber</a></li><li><a href="https://businessiajc.github.io/fiches-it/fiche-ports.html">Fiche ports et protocoles</a></li><li><a href="https://businessiajc.github.io/fiches-it/fiche-osi.html">Fiche OSI et TCP/IP</a></li></ul></div>
+</div>
+<div class="legal"><p>Information générale, ni audit de sécurité ni conseil professionnel. Aucun cookie, aucune donnée enregistrée. <a href="mentions.html">Mentions légales</a> · <a href="mailto:businessia.jc@gmail.com">Contact</a> · Mis à jour le 16 novembre 2026.</p></div>
+</div></footer>
+<script>(function(){var d=document;function close(e){d.querySelectorAll('.dd.open').forEach(function(x){if(!e||!x.contains(e.target)){x.classList.remove('open');x.firstElementChild.setAttribute('aria-expanded','false')}})}
+d.addEventListener('click',function(e){var b=e.target.closest('.dd>button');if(b){var p=b.parentNode,o=p.classList.contains('open');close();if(!o){p.classList.add('open');b.setAttribute('aria-expanded','true')}e.preventDefault();return}close(e)});
+d.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();</script>
+<script>
+(function(){
+var AIRBNB_MAIL=["airbnb.com","support-email.airbnb.com","supportmessaging.airbnb.com","airbnb.zendesk.com","e.airbnb.com","email-support.airbnb.com","express.medallia.com","ext.airbnb.com","guest.airbnb.com","host.airbnb.com","onboarding.airbnb.com","outreach.airbnb.com","research.airbnb.com"];
+var AIRBNB_MAIL_EXACT=["noreply@customer-research.airbnb.com","noreply@qemailserver.com"];
+var AIRBNB_CC=["airbnb.es","airbnb.it","airbnb.at","airbnb.co.uk"];
+var SHORT=["bit.ly","tinyurl.com","t.ly","is.gd","cutt.ly","rebrand.ly","shorturl.at","ow.ly","buff.ly","rb.gy","t.co","tiny.cc","s.id","v.gd","goo.gl","shorturl.gg"];
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function canon(s){return s.replace(/[.\-_]/g,"").replace(/0/g,"o").replace(/[1l]/g,"i").replace(/3/g,"e").replace(/5/g,"s").replace(/q/g,"g").replace(/rn/g,"n").replace(/m/g,"n").replace(/vv/g,"w").replace(/(.)+/g,"$1")}
+function under(h,d){return h===d||h.slice(-(d.length+1))==="."+d}
+var EXC=["fairbnb.coop"];
+function brand(h){
+  var flat=h.replace(/[.\-_]/g,""),r=[];
+  if(EXC.some(function(d){return under(h,d)}))return r;
+  if(flat.indexOf("airbnb")>=0||canon(h).indexOf(canon("airbnb"))>=0)r.push({n:"Airbnb",strong:true});
+  if(/booking[.\-_]?com/.test(h))r.push({n:"Booking",strong:true});
+  else if(flat.indexOf("booking")>=0)r.push({n:"Booking",strong:false});
+  else if(canon(h).indexOf(canon("booking"))>=0)r.push({n:"Booking",strong:true});
+  return r;
+}
+function brandCard(h,mail){
+  var b=brand(h);if(!b.length)return "";
+  var st=b.filter(function(x){return x.strong}).map(function(x){return x.n});
+  if(st.length)return card("ko","Imitation","Ce n'est pas "+st.join(" ni ")+", c'est une imitation","<p><code>"+esc(h)+"</code> reprend le nom "+st.join(" et ")+", parfois avec une lettre changée, mais n'appartient pas à la plateforme."+(mail?" Airbnb cite lui-même ce type de faux (reservation-airbnb.com). Ne répondez pas, ne cliquez pas.":" Ne cliquez pas, ne payez pas. Signalez le message depuis l'application.")+"</p>");
+  return card("warn","Mot booking","Contient le mot « booking », mais ce n'est pas booking.com","<p><code>"+esc(h)+"</code> n'appartient pas à Booking.com. Beaucoup de moteurs de réservation d'hôtels utilisent ce mot anglais en toute légitimité, et les fraudeurs aussi. Si le message dit venir de Booking.com, c'est un faux. S'il vient de l'hôtel, comparez avec l'adresse du site officiel de l'hôtel ou de votre confirmation.</p>");
+}
+function card(cls,label,title,body){return '<div class="check '+cls+'"><header><h3>'+title+'</h3><span class="chip '+cls+'">'+label+'</span></header>'+body+'</div>'}
+function analyse(raw){
+  var s=raw.trim(),out=[];
+  if(!s)return "";
+  var m=s.match(/<([^<>\s]+@[^<>\s]+)>/);if(m)s=m[1];
+  s=s.replace(/^mailto:/i,"");
+  if(/^[^\s@\/]+@[^\s@\/]+\.[^\s@\/]+$/.test(s))return analyseMail(s.toLowerCase());
+  var u;
+  try{u=new URL(/^[a-z][a-z0-9+.\-]*:\/\//i.test(s)?s:"https://"+s)}catch(e){return card("warn","Illisible","Adresse non reconnue","<p>Collez le lien complet (il commence en général par https://) ou une adresse e-mail.</p>")}
+  var h=u.hostname.toLowerCase().replace(/\.$/,"");
+  out.push('<p>Destination réelle : <strong><code>'+esc(h)+'</code></strong>'+(u.protocol==="http:"?" (connexion non chiffrée, http)":"")+'</p>');
+  var notes=[];
+  if(u.username)notes.push("<p>Le texte avant le signe @ (<code>"+esc(decodeURIComponent(u.username))+"</code>) est un leurre : le navigateur l'ignore et va sur <code>"+esc(h)+"</code>.</p>");
+  if(/(^|\.)xn--/.test(h))notes.push("<p>L'adresse contient des caractères d'un autre alphabet déguisés en lettres latines (forme <code>xn--</code>). C'est une technique classique d'imitation.</p>");
+  var redir=[];u.searchParams.forEach(function(v){if(/^https?:\/\//i.test(v)){try{redir.push(new URL(v).hostname)}catch(e){}}});
+  if(redir.length)notes.push("<p>Le lien contient une seconde adresse qui peut servir de redirection : <code>"+esc(redir.join(", "))+"</code>. Vérifiez-la aussi.</p>");
+  var verdict;
+  if(under(h,"booking.com"))verdict=card("ok","Booking","Ce lien mène bien à booking.com","<p>Le domaine appartient à Booking. Cela ne garantit pas le contenu : ne saisissez jamais votre carte en réponse à un message, ouvrez la réservation depuis l'application.</p>");
+  else if(under(h,"airbnb.com")||AIRBNB_CC.some(function(d){return under(h,d)}))verdict=card("ok","Airbnb","Ce lien mène bien à Airbnb","<p>Domaine cité par l'aide officielle d'Airbnb. Pour payer ou modifier une réservation, passez quand même par l'application.</p>");
+  else if(/^(www\.)?airbnb\.[a-z]{2}(\.[a-z]{2})?$/.test(h))verdict=card("warn","À confirmer","Adresse pays d'Airbnb non citée",'<p>Airbnb indique que ses liens commencent par airbnb.com ou une adresse pays, mais <code>'+esc(h)+"</code> ne figure pas dans les exemples de sa page d'aide. Tapez airbnb.com vous-même plutôt que de suivre le lien.</p>");
+  else if(/^\d{1,3}(\.\d{1,3}){3}$/.test(h)||h.charAt(0)==="[")verdict=card("ko","Faux","Adresse numérique","<p>Le lien pointe vers une adresse IP, pas vers un nom de domaine. Aucun service de réservation sérieux n'envoie ce genre de lien. Ne cliquez pas.</p>");
+  else{
+    var bc=brandCard(h,false);
+    if(bc)verdict=bc;
+    else if(SHORT.some(function(d){return under(h,d)}))verdict=card("warn","Masqué","Lien raccourci : destination cachée","<p><code>"+esc(h)+"</code> est un service de raccourcissement. La vraie destination n'apparaît qu'après le clic. Booking et Airbnb n'ont pas besoin de cacher leurs adresses : ne cliquez pas.</p>");
+    else verdict=card("warn","Autre site","Ni Booking ni Airbnb","<p>Ce lien mène vers <code>"+esc(h)+"</code>. Si le message se présente comme venant de Booking, d'Airbnb ou de l'hébergement et demande une carte ou un paiement, c'est un faux. S'il s'agit du site de l'hôtel, comparez avec l'adresse de votre confirmation de réservation.</p>");
+  }
+  if(u.username||/(^|\.)xn--/.test(h))verdict=card("ko","Truqué","Adresse truquée : ne cliquez pas","<p>L'adresse est construite pour tromper l'oeil (texte leurre avant @ ou lettres d'un autre alphabet). Elle mène en réalité à <code>"+esc(h)+"</code>. Aucun service honnête n'a besoin de ce procédé.</p>");
+  else if(notes.length&&verdict.indexOf('check ok')>=0)verdict=verdict.replace(/check ok/,"check warn").replace(/chip ok/,"chip warn");
+  return verdict+(notes.length?card("warn","Détails","Points relevés dans l'adresse",notes.join("")):"")+'<div class="check"><header><h3>Adresse analysée</h3></header>'+out.join("")+'</div>';
+}
+function analyseMail(a){
+  var d=a.split("@")[1].replace(/\.$/,"");
+  var info='<div class="check"><header><h3>Expéditeur analysé</h3></header><p>Domaine d\'envoi : <strong><code>'+esc(d)+'</code></strong></p></div>';
+  if(AIRBNB_MAIL_EXACT.indexOf(a)>=0||AIRBNB_MAIL.indexOf(d)>=0)return card("ok","Liste Airbnb","Adresse de la liste officielle d'Airbnb","<p>Le domaine figure dans la liste publiée par Airbnb. L'adresse affichée peut toutefois être imitée : ne payez que depuis l'application.</p>")+info;
+  if(d==="qemailserver.com"||d==="customer-research.airbnb.com")return card("ko","Hors liste","Adresse proche de la liste d'Airbnb, mais pas dedans","<p>Airbnb n'autorise sur ce domaine que l'adresse noreply@"+esc(d)+". Celle-ci n'y figure pas.</p>")+info;
+  if(under(d,"airbnb.com"))return card("ko","Hors liste","Sous-domaine absent de la liste d'Airbnb","<p>Airbnb écrit que ses e-mails ne viennent que des domaines de sa liste. <code>"+esc(d)+"</code> n'y figure pas.</p>")+info;
+  if(under(d,"booking.com"))return card("warn","À confirmer","Domaine de Booking, adresse non vérifiable ici","<p>Le domaine est bien booking.com, mais Booking ne publie pas la liste de ses adresses d'envoi sur sa page de sécurité, et une adresse affichée peut être imitée. Ouvrez la réservation dans l'application et comparez le message.</p>")+info;
+  var bc=brandCard(d,true);
+  if(bc)return bc+info;
+  return card("warn","Autre expéditeur","Ni Booking ni Airbnb","<p>Cette adresse n'appartient à aucune des deux plateformes. Si le message se présente comme venant d'elles, c'est un faux. Si c'est l'hôtel, comparez avec l'adresse de votre confirmation.</p>")+info;
+}
+var q=document.getElementById("q"),o=document.getElementById("out");
+function run(){o.innerHTML=analyse(q.value)}
+document.getElementById("f").addEventListener("submit",run);
+q.addEventListener("paste",function(){setTimeout(run,0)});
+document.querySelectorAll("[data-copy]").forEach(function(btn){btn.addEventListener("click",function(){var t=document.getElementById(btn.getAttribute("data-copy")).textContent;navigator.clipboard.writeText(t).then(function(){btn.textContent="Copié"})})});
+window.__analyse=analyse;
+})();
+</script><script>
+(function(){var l=[].slice.call(document.querySelectorAll('.aside .toc a'));if(!l.length||!('IntersectionObserver' in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-10% 0px -80% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(function(h){o.observe(h)})})();
+</script>
+</body>
+</html>
